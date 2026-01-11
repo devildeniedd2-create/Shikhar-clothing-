@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shikhar Clothing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; max-width: 100%; overflow-x: hidden; }
+        header { background-color: #333; color: #fff; padding: 10px; text-align: center; }
+        header h1 { font-size: 24px; }
+        nav { background-color: #444; padding: 10px; }
+        nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; }
+        nav ul li { margin: 5px 10px; }
+        nav ul li a { color: #fff; text-decoration: none; font-size: 16px; }
+        .hero { background-color: #eee; text-align: center; padding: 40px 20px; }
+        .hero h2 { font-size: 22px; margin-bottom: 10px; }
+        .hero p { font-size: 16px; }
+        .products { padding: 20px; display: flex; flex-wrap: wrap; justify-content: center; }
+        .product { background-color: #fff; border: 1px solid #ddd; margin: 10px; padding: 10px; width: 100%; max-width: 300px; text-align: center; }
+        .product img { max-width: 100%; height: auto; }
+        .product h3 { font-size: 18px; margin: 10px 0; }
+        .product p { font-size: 14px; }
+        .product button { background-color: #333; color: #fff; border: none; padding: 10px; cursor: pointer; font-size: 14px; }
+        footer { background-color: #333; color: #fff; text-align: center; padding: 10px; font-size: 14px; }
+        @media (max-width: 600px) {
+            header h1 { font-size: 20px; }
+            nav ul li a { font-size: 14px; }
+            .hero h2 { font-size: 18px; }
+            .hero p { font-size: 14px; }
+            .product { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header><h1>Shikhar Clothing</h1></header>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <section id="home" class="hero">
+        <h2>Welcome to Shikhar Clothing</h2>
+        <p>Quality clothing for everyone, including stylish options for kids like 4.5-year-old girls. Affordable, comfortable, and trendy!</p>
+    </section>
+    <section id="products" class="products">
+        <h2>Our Products</h2>
+        <div class="product">
+            <img src="https://via.placeholder.com/300x200?text=Dress+for+Girls" alt="Dress for Girls">
+            <h3>Girls' Dress</h3>
+            <p>Perfect for 4-5 year olds. Soft fabric, vibrant colors. $15</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/300x200?text=T-Shirt" alt="T-Shirt">
+            <h3>T-Shirt</h3>
+            <p>Comfortable cotton t-shirts for daily wear. $10</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://via.placeholder.com/300x200?text=Jeans" alt="Jeans">
+            <h3>Jeans</h3>
+            <p>Durable jeans for active kids. $20</p>
+            <button>Add to Cart</button>
+        </div>
+    </section>
+    <section id="about"><h2>About Us</h2><p>Shikhar Clothing is dedicated to providing high-quality, affordable clothing. We specialize in kids' wear, including for young girls around 4.5 years old.</p></section>
+    <section id="contact"><h2>Contact Us</h2><p>Email: info@shikharclothing.com</p><p>Phone: +91-1234567890</p></section>
+    <footer>&copy; 2026 Shikhar Clothing. All rights reserved.</footer>
+    <script>
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => { button.addEventListener('click', () => { alert('Item added to cart!'); }); });
+    </script>
+</body>
+</html>
