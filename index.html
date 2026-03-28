@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SHIKHAR — The Soul of India, Worn</title>
+  <meta name="description" content="Shikhar Clothing — Premium Indian ethnic wear for kids and family. Born from the colours, culture and soul of every corner of India."/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+  /* ══════════════════════════════════════════
+     ROOT & RESET
+  ══════════════════════════════════════════ */
+  :root {
+    --black:   #080808;
+    --deep:    #0d0d0d;
+    --saffron: #E8750A;
+    --gold:    #C8960C;
+    --gold2:   #F0B429;
+    --ivory:   #F7F0E6;
+    --cream:   #EDE5D8;
+    --white:   #FAFAF8;
+    --grey:    #888480;
+    --muted:   #555250;
+    --indigo:  #1A1060;
+    --maroon:  #7B1E2E;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;font-size:16px;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--black);
+    color:var(--ivory);
+    overflow-x:hidden;
+    cursor:none;
+  }
+  img{display:block;max-width:100%;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:none;}
+
+  /* ══════════════════════════════════════════
+     CUSTOM CURSOR
+  ══════════════════════════════════════════ */
+  #cur{
+    position:fixed;top:0;left:0;z-index:9999;
+    width:8px;height:8px;
+    background:var(--saffron);border-radius:50%;
+    pointer-events:none;transform:translate(-50%,-50%);
+    transition:width .15s,height .15s;
+  }
+  #ring{
+    position:fixed;top:0;left:0;z-index:9998;
+    width:32px;height:32px;
+    border:1px solid rgba(232,117,10,0.5);
+    border-radius:50%;pointer-events:none;
+    transform:translate(-50%,-50%);
+    transition:all .1s ease;
+  }
+
+  /* ══════════════════════════════════════════
+     SCROLLING TICKER
+  ══════════════════════════════════════════ */
+  .ticker{
+    background:var(--saffron);
+    color:var(--black);
+    font-size:.6rem;letter-spacing:3px;
+    text-transform:uppercase;font-weight:500;
+    padding:.5rem 0;overflow:hidden;white-space:nowrap;
+  }
+  .ticker-inner{
+    display:inline-block;
+    animation:ticker 30s linear infinite;
+  }
+  .ticker-inner span{margin:0 3rem;}
+  @keyframes ticker{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ══════════════════════════════════════════
+     NAVIGATION
+  ══════════════════════════════════════════ */
+  nav{
+    position:fixed;top:36px;left:0;right:0;z-index:500;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.2rem 4%;
+    transition:all .4s ease;
+  }
+  nav.scrolled{
+    top:0;
+    background:rgba(8,8,8,0.96);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(200,150,12,0.2);
+  }
+
+  /* LOGO */
+  .logo-wrap{display:flex;flex-direction:column;align-items:flex-start;}
+  .logo-main{
+    font-family:'Cinzel',serif;
+    font-size:1.6rem;letter-spacing:12px;font-weight:600;
+    color:var(--white);line-height:1;
+    text-transform:uppercase;
+  }
+  .logo-sub{
+    font-family:'Cormorant Garamond',serif;
+    font-size:.62rem;letter-spacing:5.5px;
+    color:var(--gold);text-transform:uppercase;
+    font-style:italic;margin-top:2px;
+    opacity:.85;
+  }
+
+  .nav-links{
+    display:flex;gap:2.8rem;
+    position:absolute;left:50%;transform:translateX(-50%);
+  }
+  .nav-links a{
+    font-size:.6rem;letter-spacing:3px;
+    text-transform:uppercase;color:rgba(247,240,230,.65);
+    transition:color .2s;position:relative;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-4px;left:0;right:0;
+    height:1px;background:var(--saffron);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .3s ease;
+  }
+  .nav-links a:hover{color:var(--ivory);}
+  .nav-links a:hover::after{transform:scaleX(1);}
+
+  .nav-right{display:flex;gap:1.5rem;align-items:center;}
+  .nav-right a{
+    font-size:.6rem;letter-spacing:2px;
+    text-transform:uppercase;color:rgba(247,240,230,.6);
+    transition:color .2s;
+  }
+  .nav-right a:hover{color:var(--ivory);}
+  .nav-bag{
+    background:transparent;border:1px solid rgba(200,150,12,.5);
+    color:var(--gold2);font-size:.6rem;letter-spacing:2px;
+    text-transform:uppercase;padding:.5rem 1.1rem;
+    transition:all .25s;
+  }
+  .nav-bag:hover{background:var(--saffron);border-color:var(--saffron);color:var(--black);}
+
+  /* hamburger mobile */
+  .hamburger{
+    display:none;flex-direction:column;gap:5px;
+    background:none;border:none;padding:.4rem;
+  }
+  .hamburger span{
+    display:block;width:22px;height:1px;
+    background:var(--ivory);transition:all .3s;
+  }
+
+  /* ══════════════════════════════════════════
+     HERO — FULL CINEMATIC
+  ══════════════════════════════════════════ */
+  .hero{
+    height:100vh;min-height:680px;
+    position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;
+  }
+
+  /* India cultural mosaic background — layered SVG + photo */
+  .hero-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(160deg,
+        rgba(8,8,8,.80) 0%,
+        rgba(26,16,96,.25) 40%,
+        rgba(123,30,46,.30) 70%,
+        rgba(8,8,8,.90) 100%),
+      url('https://images.unsplash.com/photo-1524492412937-b28074a47d70?w=1600&q=90') center/cover no-repeat;
+    transform:scale(1.04);
+    animation:heroZoom 10s ease forwards;
+  }
+  @keyframes heroZoom{to{transform:scale(1);}}
+
+  /* India cultural SVG mandala overlay */
+  .hero-mandala{
+    position:absolute;right:-80px;top:50%;
+    transform:translateY(-50%);
+    width:700px;height:700px;opacity:.06;
+    pointer-events:none;
+  }
+
+  /* grain texture */
+  .hero::after{
+    content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;opacity:.4;
+    mix-blend-mode:overlay;
+  }
+
+  .hero-content{
+    position:relative;z-index:2;
+    padding:0 6% 8%;
+    max-width:800px;
+  }
+  .hero-kicker{
+    font-size:.58rem;letter-spacing:6px;
+    text-transform:uppercase;color:var(--saffron);
+    margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;
+    opacity:0;animation:fadeUp .7s ease .2s forwards;
+  }
+  .hero-kicker::before{
+    content:'';display:block;width:40px;height:1px;background:var(--saffron);
+  }
+  .hero-h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3.2rem,7vw,7rem);
+    font-weight:300;line-height:1.02;
+    letter-spacing:-1px;
+    opacity:0;animation:fadeUp .9s ease .35s forwards;
+  }
+  .hero-h1 em{font-style:italic;color:var(--gold2);display:block;}
+  .hero-h1 strong{
+    font-weight:300;display:block;
+    -webkit-text-stroke:1px rgba(247,240,230,.35);
+    color:transparent;
+  }
+  .hero-sub{
+    font-size:.82rem;color:rgba(247,240,230,.55);
+    line-height:1.9;max-width:420px;
+    margin:2rem 0 2.5rem;
+    opacity:0;animation:fadeUp .9s ease .5s forwards;
+  }
+  .hero-btns{
+    display:flex;gap:1.2rem;flex-wrap:wrap;
+    opacity:0;animation:fadeUp .9s ease .65s forwards;
+  }
+  .btn-saffron{
+    background:var(--saffron);color:var(--black);
+    border:none;padding:.85rem 2rem;
+    font-size:.65rem;letter-spacing:3px;
+    text-transform:uppercase;font-weight:500;
+    transition:all .25s;
+  }
+  .btn-saffron:hover{background:var(--gold2);}
+  .btn-ghost{
+    background:transparent;color:var(--ivory);
+    border:1px solid rgba(247,240,230,.3);
+    padding:.85rem 2rem;
+    font-size:.65rem;letter-spacing:3px;
+    text-transform:uppercase;
+    transition:all .25s;
+  }
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold2);}
+
+  /* scroll indicator */
+  .scroll-hint{
+    position:absolute;bottom:2.5rem;right:5%;
+    display:flex;flex-direction:column;align-items:center;gap:.6rem;
+    z-index:2;
+    opacity:0;animation:fadeUp 1s ease 1.2s forwards;
+  }
+  .scroll-hint span{
+    font-size:.55rem;letter-spacing:3px;
+    text-transform:uppercase;color:rgba(247,240,230,.35);
+    writing-mode:vertical-rl;
+  }
+  .scroll-line{
+    width:1px;height:60px;
+    background:linear-gradient(to bottom,var(--saffron),transparent);
+    animation:scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse{
+    0%{transform:scaleY(0);transform-origin:top;}
+    50%{transform:scaleY(1);transform-origin:top;}
+    51%{transform:scaleY(1);transform-origin:bottom;}
+    100%{transform:scaleY(0);transform-origin:bottom;}
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* ══════════════════════════════════════════
+     INDIA CULTURES STRIP — horizontal scroll
+  ══════════════════════════════════════════ */
+  .india-strip{
+    background:var(--deep);
+    border-top:1px solid rgba(200,150,12,.15);
+    border-bottom:1px solid rgba(200,150,12,.15);
+    padding:4rem 0;
+    overflow:hidden;
+  }
+  .india-strip-label{
+    text-align:center;
+    font-size:.58rem;letter-spacing:5px;
+    text-transform:uppercase;color:var(--gold);
+    margin-bottom:2.5rem;
+  }
+  .india-cards{
+    display:flex;gap:1px;
+    overflow-x:auto;scrollbar-width:none;
+    padding:0 4%;
+  }
+  .india-cards::-webkit-scrollbar{display:none;}
+  .i-card{
+    flex:0 0 220px;position:relative;
+    overflow:hidden;height:300px;
+  }
+  .i-card img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .7s ease;
+    filter:brightness(.65) saturate(1.1);
+  }
+  .i-card:hover img{transform:scale(1.07);filter:brightness(.5) saturate(1.3);}
+  .i-card-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(8,8,8,.9) 0%,transparent 60%);
+  }
+  .i-card-text{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:1.2rem 1rem;
+  }
+  .i-card-region{
+    font-size:.55rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--saffron);
+    margin-bottom:.3rem;
+  }
+  .i-card-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;font-weight:400;
+    color:var(--white);line-height:1.2;
+  }
+
+  /* ══════════════════════════════════════════
+     SECTION UTILITY
+  ══════════════════════════════════════════ */
+  .s-tag{
+    font-size:.58rem;letter-spacing:5px;
+    text-transform:uppercase;color:var(--saffron);
+    display:flex;align-items:center;gap:1rem;
+    margin-bottom:1rem;
+  }
+  .s-tag::before{content:'';width:30px;height:1px;background:var(--saffron);}
+  .s-divider{
+    width:1px;height:80px;
+    background:linear-gradient(to bottom,var(--saffron),transparent);
+    margin:2rem auto;
+  }
+
+  /* ══════════════════════════════════════════
+     BRAND PHILOSOPHY — EDITORIAL SPLIT
+  ══════════════════════════════════════════ */
+  .philosophy{
+    display:grid;grid-template-columns:1fr 1fr;
+    min-height:90vh;
+  }
+  .phil-visual{
+    position:relative;overflow:hidden;
+  }
+  .phil-visual img{
+    width:100%;height:100%;object-fit:cover;
+    filter:saturate(1.15);
+    transition:transform .8s ease;
+  }
+  .phil-visual:hover img{transform:scale(1.03);}
+  .phil-visual-caption{
+    position:absolute;bottom:2rem;left:2rem;
+    font-size:.55rem;letter-spacing:3px;
+    text-transform:uppercase;color:rgba(247,240,230,.45);
+  }
+
+  /* Bharatnatyam dancer overlay motif */
+  .phil-visual::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,transparent 60%,rgba(8,8,8,.5));
+  }
+
+  .phil-text{
+    background:var(--deep);
+    display:flex;flex-direction:column;justify-content:center;
+    padding:8% 10%;
+    position:relative;
+  }
+  .phil-text::before{
+    content:'"';
+    font-family:'Cormorant Garamond',serif;
+    font-size:18rem;line-height:.7;
+    color:rgba(200,150,12,.04);
+    position:absolute;top:2rem;left:3rem;
+    pointer-events:none;
+  }
+  .phil-text h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2.2rem,3.5vw,3.5rem);
+    font-weight:300;line-height:1.15;
+    margin:1rem 0 2rem;
+  }
+  .phil-text h2 em{color:var(--gold2);font-style:italic;}
+  .phil-text p{
+    font-size:.8rem;color:rgba(247,240,230,.5);
+    line-height:2;margin-bottom:1rem;max-width:400px;
+  }
+  .phil-text .cta-link{
+    font-size:.6rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--saffron);
+    display:flex;align-items:center;gap:1rem;
+    margin-top:2rem;transition:gap .3s;
+  }
+  .phil-text .cta-link::after{
+    content:'';width:40px;height:1px;background:var(--saffron);
+    transition:width .3s;
+  }
+  .phil-text .cta-link:hover{gap:1.5rem;}
+  .phil-text .cta-link:hover::after{width:60px;}
+
+  /* ══════════════════════════════════════════
+     COLLECTION GRID
+  ══════════════════════════════════════════ */
+  .collection{
+    padding:7rem 4%;
+    background:var(--black);
+  }
+  .col-hdr{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    margin-bottom:4rem;flex-wrap:wrap;gap:1rem;
+  }
+  .col-hdr h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,4vw,3.8rem);
+    font-weight:300;
+  }
+  .col-hdr h2 em{color:var(--gold2);font-style:italic;}
+  .col-hdr a{
+    font-size:.6rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--grey);
+    border-bottom:1px solid rgba(136,132,128,.3);
+    padding-bottom:3px;transition:color .2s,border-color .2s;
+  }
+  .col-hdr a:hover{color:var(--saffron);border-color:var(--saffron);}
+
+  .col-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;background:rgba(200,150,12,.1);
+  }
+  .col-item{
+    background:var(--deep);overflow:hidden;
+    transition:background .3s;
+  }
+  .col-item:hover{background:#111;}
+  .col-img-wrap{
+    position:relative;overflow:hidden;
+    aspect-ratio:3/4;
+  }
+  .col-img-wrap img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .7s cubic-bezier(.25,.46,.45,.94);
+    filter:saturate(1.05);
+  }
+  .col-item:hover .col-img-wrap img{transform:scale(1.06);}
+  .col-badge{
+    position:absolute;top:1rem;left:1rem;
+    font-size:.5rem;letter-spacing:2px;
+    text-transform:uppercase;
+    background:var(--saffron);color:var(--black);
+    padding:.2rem .6rem;font-weight:500;
+  }
+  .col-inspired{
+    position:absolute;bottom:1rem;right:1rem;
+    font-size:.5rem;letter-spacing:1.5px;
+    text-transform:uppercase;color:rgba(247,240,230,.5);
+    background:rgba(8,8,8,.7);padding:.2rem .5rem;
+    backdrop-filter:blur(4px);
+  }
+  .col-body{padding:1.4rem 1.2rem 1.8rem;}
+  .col-body h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;font-weight:400;
+    color:var(--ivory);margin-bottom:.3rem;
+  }
+  .col-body .sub{
+    font-size:.6rem;letter-spacing:2px;
+    text-transform:uppercase;color:var(--grey);
+  }
+  .col-footer{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:1.2rem;padding-top:1rem;
+    border-top:1px solid rgba(200,150,12,.12);
+  }
+  .price-main{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.3rem;color:var(--ivory);
+  }
+  .price-was{
+    font-size:.7rem;color:var(--grey);
+    text-decoration:line-through;margin-left:.4rem;
+    font-family:'Poppins',sans-serif;font-weight:300;
+  }
+  .btn-wa{
+    background:none;border:1px solid rgba(200,150,12,.4);
+    color:var(--gold);font-size:.55rem;
+    letter-spacing:2px;text-transform:uppercase;
+    padding:.45rem .9rem;transition:all .25s;
+  }
+  .btn-wa:hover{background:var(--saffron);border-color:var(--saffron);color:var(--black);}
+
+  /* ══════════════════════════════════════════
+     FULL BLEED CAMPAIGN
+  ══════════════════════════════════════════ */
+  .campaign{
+    height:85vh;min-height:560px;
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;
+  }
+  .campaign-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(to right,rgba(8,8,8,.85) 0%,rgba(8,8,8,.3) 55%,transparent 100%),
+      url('https://images.unsplash.com/photo-1583391733981-8498408ee4b6?w=1600&q=90') center/cover no-repeat;
+  }
+  .campaign-content{
+    position:relative;z-index:2;
+    padding:0 7%;
+  }
+  .campaign-content .s-tag{color:var(--gold2);}
+  .campaign-content .s-tag::before{background:var(--gold2);}
+  .campaign-content h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(3rem,6vw,6rem);
+    font-weight:300;line-height:1.05;
+    max-width:650px;
+  }
+  .campaign-content h2 em{font-style:italic;color:var(--gold2);}
+  .campaign-content p{
+    color:rgba(247,240,230,.6);
+    font-size:.82rem;line-height:1.9;
+    max-width:380px;margin:1.5rem 0 2.5rem;
+  }
+
+  /* ══════════════════════════════════════════
+     INDIA INSPIRATION — STATE FEATURES
+  ══════════════════════════════════════════ */
+  .india-features{
+    padding:7rem 4%;
+    background:var(--deep);
+  }
+  .if-header{text-align:center;margin-bottom:5rem;}
+  .if-header h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,4vw,3.5rem);
+    font-weight:300;margin-top:.8rem;
+  }
+  .if-header h2 em{color:var(--saffron);font-style:italic;}
+  .if-header p{
+    font-size:.8rem;color:var(--grey);
+    line-height:1.9;max-width:500px;margin:.9rem auto 0;
+  }
+
+  .if-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;background:rgba(200,150,12,.08);
+    margin-bottom:2px;
+  }
+  .if-grid-wide{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:2px;background:rgba(200,150,12,.08);
+    margin-top:2px;
+  }
+  .if-item{
+    position:relative;overflow:hidden;
+  }
+  .if-item img{
+    width:100%;height:280px;object-fit:cover;
+    filter:brightness(.6) saturate(1.2);
+    transition:all .7s ease;
+  }
+  .if-item.tall img{height:420px;}
+  .if-item:hover img{filter:brightness(.4) saturate(1.5);transform:scale(1.04);}
+  .if-item-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.1) 60%,transparent 100%);
+  }
+  .if-item-text{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:1.5rem 1.2rem;
+  }
+  .if-state{
+    font-size:.5rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--saffron);
+    margin-bottom:.3rem;
+  }
+  .if-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;color:var(--white);font-weight:400;
+  }
+  .if-desc{
+    font-size:.65rem;color:rgba(247,240,230,.45);
+    line-height:1.6;margin-top:.4rem;
+    max-width:260px;
+  }
+  /* hover reveal desc */
+  .if-desc{opacity:0;transform:translateY(8px);transition:all .35s ease;}
+  .if-item:hover .if-desc{opacity:1;transform:translateY(0);}
+
+  /* ══════════════════════════════════════════
+     CRAFTSMANSHIP HORIZONTAL FEATURE
+  ══════════════════════════════════════════ */
+  .craft{
+    display:grid;grid-template-columns:1fr 1fr 1fr;
+    min-height:70vh;
+  }
+  .craft-item{
+    position:relative;overflow:hidden;
+  }
+  .craft-item img{
+    width:100%;height:100%;object-fit:cover;
+    filter:brightness(.55) saturate(1.1);
+    transition:all .7s;
+  }
+  .craft-item:hover img{filter:brightness(.35) saturate(1.4);transform:scale(1.04);}
+  .craft-overlay{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:2.5rem 2rem;
+    background:linear-gradient(to top,rgba(8,8,8,.9),transparent);
+  }
+  .craft-num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:4rem;font-weight:300;
+    color:rgba(247,240,230,.06);
+    line-height:1;position:absolute;top:1.5rem;left:1.5rem;
+  }
+  .craft-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.5rem;font-weight:400;color:var(--white);
+  }
+  .craft-sub{
+    font-size:.62rem;letter-spacing:2px;
+    text-transform:uppercase;color:var(--saffron);
+    margin-bottom:.5rem;
+  }
+
+  /* ══════════════════════════════════════════
+     STATS — BLACK SECTION
+  ══════════════════════════════════════════ */
+  .stats-band{
+    background:var(--black);
+    border-top:1px solid rgba(200,150,12,.15);
+    border-bottom:1px solid rgba(200,150,12,.15);
+    padding:5rem 4%;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:2rem;text-align:center;
+  }
+  .stat-num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:3.5rem;font-weight:300;
+    color:var(--white);line-height:1;
+  }
+  .stat-num em{color:var(--saffron);font-style:italic;}
+  .stat-lbl{
+    font-size:.58rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--grey);
+    margin-top:.6rem;
+  }
+
+  /* ══════════════════════════════════════════
+     LOOKBOOK STRIP
+  ══════════════════════════════════════════ */
+  .lookbook{
+    padding:7rem 4%;background:var(--deep);
+  }
+  .lb-header{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    margin-bottom:3rem;flex-wrap:wrap;gap:1rem;
+  }
+  .lb-header h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.8rem,3vw,3rem);font-weight:300;
+  }
+  .lb-header a{
+    font-size:.6rem;letter-spacing:2px;
+    text-transform:uppercase;color:var(--grey);
+    border-bottom:1px solid rgba(136,132,128,.3);
+    padding-bottom:3px;transition:all .2s;
+  }
+  .lb-header a:hover{color:var(--saffron);border-color:var(--saffron);}
+  .lb-strip{
+    display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;
+  }
+  .lb-strip::-webkit-scrollbar{display:none;}
+  .lb-frame{
+    flex:0 0 260px;position:relative;overflow:hidden;height:380px;
+  }
+  .lb-frame img{
+    width:100%;height:100%;object-fit:cover;
+    filter:saturate(1.1) brightness(.8);
+    transition:all .6s ease;
+  }
+  .lb-frame:hover img{filter:saturate(1.3) brightness(.65);transform:scale(1.04);}
+  .lb-num{
+    position:absolute;top:1rem;left:1rem;
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.5rem;font-weight:300;
+    color:rgba(247,240,230,.12);line-height:1;
+  }
+  .lb-caption{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:1.2rem 1rem;
+    background:linear-gradient(transparent,rgba(8,8,8,.85));
+    font-size:.58rem;letter-spacing:2px;
+    text-transform:uppercase;color:rgba(247,240,230,.5);
+    opacity:0;transition:opacity .35s;
+  }
+  .lb-frame:hover .lb-caption{opacity:1;}
+
+  /* ══════════════════════════════════════════
+     CONTACT / WHATSAPP
+  ══════════════════════════════════════════ */
+  .contact{
+    padding:7rem 4%;
+    background:
+      linear-gradient(135deg,var(--black) 0%,rgba(26,16,96,.15) 50%,var(--black) 100%);
+    text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .contact::before{
+    content:'SHIKHAR';
+    font-family:'Cinzel',serif;
+    font-size:18vw;font-weight:600;
+    color:rgba(247,240,230,.02);
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    white-space:nowrap;pointer-events:none;
+    letter-spacing:3vw;
+  }
+  .contact-inner{position:relative;z-index:2;}
+  .contact h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,4vw,4rem);
+    font-weight:300;margin:1rem 0;
+  }
+  .contact h2 em{color:var(--saffron);font-style:italic;}
+  .contact p{
+    font-size:.8rem;color:var(--grey);
+    line-height:1.9;max-width:460px;margin:0 auto 3rem;
+  }
+  .wa-btn{
+    display:inline-flex;align-items:center;gap:1rem;
+    background:var(--saffron);color:var(--black);
+    border:none;padding:1.1rem 2.8rem;
+    font-size:.7rem;letter-spacing:3px;
+    text-transform:uppercase;font-weight:500;
+    transition:all .3s;
+  }
+  .wa-btn:hover{background:var(--gold2);transform:translateY(-2px);}
+  .wa-icon{font-size:1.1rem;}
+  .contact-details{
+    margin-top:3rem;display:flex;
+    justify-content:center;gap:4rem;flex-wrap:wrap;
+  }
+  .cd-item label{
+    display:block;font-size:.5rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--saffron);margin-bottom:.4rem;
+  }
+  .cd-item span{font-size:.8rem;color:rgba(247,240,230,.6);}
+
+  /* ══════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════ */
+  footer{
+    background:var(--deep);
+    border-top:1px solid rgba(200,150,12,.15);
+    padding:5rem 4% 2.5rem;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:4rem;margin-bottom:4rem;
+  }
+  .footer-brand .logo-main{font-size:1.2rem;letter-spacing:8px;display:block;margin-bottom:.3rem;}
+  .footer-brand .logo-sub{display:block;margin-bottom:1.5rem;}
+  .footer-brand p{
+    font-size:.72rem;color:var(--grey);
+    line-height:1.9;max-width:250px;
+  }
+  .f-col h5{
+    font-size:.55rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--gold);
+    margin-bottom:1.5rem;
+  }
+  .f-col a{
+    display:block;font-size:.72rem;color:var(--grey);
+    margin-bottom:.8rem;transition:color .2s;letter-spacing:.5px;
+  }
+  .f-col a:hover{color:var(--saffron);}
+  .footer-bottom{
+    border-top:1px solid rgba(247,240,230,.06);
+    padding-top:2rem;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:1rem;
+  }
+  .footer-bottom p{font-size:.6rem;color:rgba(136,132,128,.6);letter-spacing:1px;}
+  .social-row{display:flex;gap:2rem;}
+  .social-row a{
+    font-size:.58rem;letter-spacing:2px;
+    text-transform:uppercase;color:var(--grey);transition:color .2s;
+  }
+  .social-row a:hover{color:var(--saffron);}
+
+  /* gold horizontal rule */
+  hr.gold{
+    border:none;height:1px;
+    background:linear-gradient(to right,transparent,var(--gold),transparent);
+    margin:0;opacity:.3;
+  }
+
+  /* ══════════════════════════════════════════
+     MOBILE NAV DRAWER
+  ══════════════════════════════════════════ */
+  .nav-drawer{
+    position:fixed;inset:0;z-index:600;
+    background:var(--deep);
+    display:flex;flex-direction:column;
+    justify-content:center;align-items:center;gap:2rem;
+    transform:translateX(100%);
+    transition:transform .45s cubic-bezier(.76,0,.24,1);
+  }
+  .nav-drawer.open{transform:translateX(0);}
+  .nav-drawer a{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.5rem;font-weight:300;
+    color:var(--ivory);letter-spacing:3px;
+    text-transform:uppercase;
+  }
+  .nav-drawer a:hover{color:var(--saffron);}
+  .drawer-close{
+    position:absolute;top:2rem;right:4%;
+    background:none;border:none;
+    font-size:1.5rem;color:var(--ivory);
+    letter-spacing:2px;font-family:'Poppins',sans-serif;
+  }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════ */
+  @media(max-width:1024px){
+    .col-grid{grid-template-columns:repeat(2,1fr);}
+    .craft{grid-template-columns:1fr 1fr;}
+    .craft-item:last-child{display:none;}
+    .stats-band{grid-template-columns:repeat(2,1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .if-grid{grid-template-columns:1fr 1fr;}
+    .if-grid-wide{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:768px){
+    .philosophy{grid-template-columns:1fr;}
+    .phil-visual{height:50vw;}
+    .nav-links,.nav-right{display:none;}
+    .hamburger{display:flex;}
+    .col-hdr{flex-direction:column;align-items:flex-start;}
+    .if-grid{grid-template-columns:1fr;}
+    .if-grid-wide{grid-template-columns:1fr;}
+    .craft{grid-template-columns:1fr;}
+    .craft-item:not(:first-child){display:none;}
+  }
+  @media(max-width:480px){
+    .col-grid{grid-template-columns:1fr;}
+    .stats-band{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .contact-details{gap:2rem;}
+  }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()">✕ Close</button>
+  <a href="#home" onclick="closeDrawer()">Home</a>
+  <a href="#collection" onclick="closeDrawer()">Collection</a>
+  <a href="#india" onclick="closeDrawer()">India</a>
+  <a href="#lookbook" onclick="closeDrawer()">Lookbook</a>
+  <a href="#contact" onclick="closeDrawer()">Contact</a>
+</div>
+
+<!-- TICKER -->
+<div class="ticker" role="marquee">
+  <div class="ticker-inner">
+    <span>Free delivery above ₹999 across India</span>
+    <span>✦</span>
+    <span>Festive Collection 2026 — Now Live</span>
+    <span>✦</span>
+    <span>Handcrafted Indian Ethnic Wear — Kids & Family</span>
+    <span>✦</span>
+    <span>WhatsApp Orders Welcome</span>
+    <span>✦</span>
+    <span>Free delivery above ₹999 across India</span>
+    <span>✦</span>
+    <span>Festive Collection 2026 — Now Live</span>
+    <span>✦</span>
+    <span>Handcrafted Indian Ethnic Wear — Kids & Family</span>
+    <span>✦</span>
+    <span>WhatsApp Orders Welcome</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo-wrap">
+    <span class="logo-main">SHIKHAR</span>
+    <span class="logo-sub">S · H · I · K · H · A · R</span>
+  </div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#collection">Collection</a>
+    <a href="#india">Soul of India</a>
+    <a href="#lookbook">Lookbook</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="#contact">WhatsApp</a>
+    <button class="nav-bag" id="bagBtn">Bag (0)</button>
+  </div>
+  <button class="hamburger" onclick="openDrawer()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+
+  <!-- Mandala SVG -->
+  <svg class="hero-mandala" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <circle cx="100" cy="100" r="95" stroke="#C8960C" stroke-width=".5"/>
+    <circle cx="100" cy="100" r="75" stroke="#C8960C" stroke-width=".4"/>
+    <circle cx="100" cy="100" r="55" stroke="#C8960C" stroke-width=".3"/>
+    <circle cx="100" cy="100" r="35" stroke="#C8960C" stroke-width=".3"/>
+    <circle cx="100" cy="100" r="15" stroke="#C8960C" stroke-width=".3"/>
+    <!-- petals -->
+    <ellipse cx="100" cy="25" rx="5" ry="12" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="100" cy="175" rx="5" ry="12" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="25" cy="100" rx="12" ry="5" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="175" cy="100" rx="12" ry="5" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="47" cy="47" rx="5" ry="12" transform="rotate(45 47 47)" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="153" cy="47" rx="5" ry="12" transform="rotate(-45 153 47)" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="47" cy="153" rx="5" ry="12" transform="rotate(-45 47 153)" stroke="#C8960C" stroke-width=".3"/>
+    <ellipse cx="153" cy="153" rx="5" ry="12" transform="rotate(45 153 153)" stroke="#C8960C" stroke-width=".3"/>
+    <!-- outer dots -->
+    <circle cx="100" cy="5" r="1.5" fill="#C8960C"/>
+    <circle cx="100" cy="195" r="1.5" fill="#C8960C"/>
+    <circle cx="5" cy="100" r="1.5" fill="#C8960C"/>
+    <circle cx="195" cy="100" r="1.5" fill="#C8960C"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-kicker">Born from the Colours of Bharat</p>
+    <h1 class="hero-h1">
+      The Soul<br/>
+      <em>of India,</em>
+      <strong>Worn.</strong>
+    </h1>
+    <p class="hero-sub">
+      Premium Indian ethnic wear for little ones and the whole family —
+      woven from the spirit of every corner of this magnificent land.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-saffron" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">
+        Explore Collection
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('india').scrollIntoView({behavior:'smooth'})">
+        Our India Story
+      </button>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<hr class="gold"/>
+
+<!-- ═══════════ INDIA CULTURE CARDS ═══════════ -->
+<section class="india-strip">
+  <p class="india-strip-label">✦ &nbsp; From every corner of Bharat &nbsp; ✦</p>
+  <div class="india-cards">
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1524492412937-b28074a47d70?w=500&q=80"
+           alt="Taj Mahal Agra"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">Madhya Pradesh</div>
+        <div class="i-card-name">Land of the White Tiger</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=500&q=80"
+           alt="Kerala Backwaters"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">Kerala</div>
+        <div class="i-card-name">God's Own Country</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&q=80"
+           alt="Jammu Kashmir Dal Lake"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">Jammu & Kashmir</div>
+        <div class="i-card-name">Heaven on Earth</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80"
+           alt="Himalayan Glaciers"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">The Himalayas</div>
+        <div class="i-card-name">The Eternal Glaciers</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1611849029419-6f72ba0b834a?w=500&q=80"
+           alt="Rann of Kutch Gujarat"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">Gujarat</div>
+        <div class="i-card-name">Rann of Kutch</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=500&q=80"
+           alt="Sundarbans Bengal"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">West Bengal</div>
+        <div class="i-card-name">Sundarbans — Royal Bengal</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1623000853755-86f7bdadc5f5?w=500&q=80"
+           alt="Pangong Lake Ladakh"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">Ladakh · Northeast</div>
+        <div class="i-card-name">Pangong Lake</div>
+      </div>
+    </div>
+
+    <div class="i-card">
+      <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=500&q=80"
+           alt="Puri Odisha coast"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="i-card-overlay"></div>
+      <div class="i-card-text">
+        <div class="i-card-region">Odisha</div>
+        <div class="i-card-name">Jagannath — Puri Coast</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<section class="philosophy">
+  <div class="phil-visual">
+    <img
+      src="https://images.unsplash.com/photo-1583391733981-8498408ee4b6?w=900&q=90"
+      alt="Indian ethnic wear editorial"
+      onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=90'"
+    />
+    <div class="phil-visual-caption">Shikhar — Festive Collection 2026</div>
+  </div>
+  <div class="phil-text">
+    <div class="s-tag">The Shikhar Maison</div>
+    <h2>
+      Dressed in the<br/>
+      <em>Spirit of</em><br/>
+      Bharat
+    </h2>
+    <p>
+      India is not one story — it is a thousand stories told in colour, thread,
+      dance, river and mountain. At Shikhar, every garment carries a whisper
+      of that story.
+    </p>
+    <p>
+      From the Kuchipudi dancer's grace to the Himachali weaver's patience —
+      our fabrics carry the fingerprint of every state, every season.
+    </p>
+    <a href="#collection" class="cta-link">Discover Our Collection</a>
+  </div>
+</section>
+
+<!-- ═══════════ COLLECTION ═══════════ -->
+<section class="collection" id="collection">
+  <div class="col-hdr">
+    <div>
+      <div class="s-tag">The Collection</div>
+      <h2>Festive <em>Arrivals</em></h2>
+    </div>
+    <a href="#contact">Order via WhatsApp →</a>
+  </div>
+
+  <div class="col-grid">
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1622290291165-a0bee4c80a9e?w=600&q=85"
+             alt="Girls Ethnic Frock"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-badge">Bestseller</span>
+        <span class="col-inspired">Kerala Inspired</span>
+      </div>
+      <div class="col-body">
+        <h3>Girls Ethnic Frock</h3>
+        <div class="sub">Cotton Silk · Ages 4–5</div>
+        <div class="col-footer">
+          <span class="price-main">₹799 <span class="price-was">₹1,199</span></span>
+          <button class="btn-wa" onclick="orderWA('Girls Ethnic Frock — ₹799')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4a4f?w=600&q=85"
+             alt="Premium Kurti"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-badge">New</span>
+        <span class="col-inspired">Lucknow Chikankari</span>
+      </div>
+      <div class="col-body">
+        <h3>Premium Cotton Kurti</h3>
+        <div class="sub">Chikankari · All Ages</div>
+        <div class="col-footer">
+          <span class="price-main">₹499 <span class="price-was">₹799</span></span>
+          <button class="btn-wa" onclick="orderWA('Premium Cotton Kurti — ₹499')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=600&q=85"
+             alt="Mini Anarkali"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-badge">Limited</span>
+        <span class="col-inspired">Mughal Heritage</span>
+      </div>
+      <div class="col-body">
+        <h3>Mini Anarkali Suit</h3>
+        <div class="sub">Chanderi Silk · Ages 4–6</div>
+        <div class="col-footer">
+          <span class="price-main">₹1,299 <span class="price-was">₹1,899</span></span>
+          <button class="btn-wa" onclick="orderWA('Mini Anarkali Suit — ₹1,299')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=600&q=85"
+             alt="Palazzo Set"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-inspired">Rajasthani Weave</span>
+      </div>
+      <div class="col-body">
+        <h3>Palazzo Set</h3>
+        <div class="sub">Bandhani Cotton · All Ages</div>
+        <div class="col-footer">
+          <span class="price-main">₹999 <span class="price-was">₹1,499</span></span>
+          <button class="btn-wa" onclick="orderWA('Palazzo Set — ₹999')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=85"
+             alt="Lehenga Choli"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-badge">Festival Pick</span>
+        <span class="col-inspired">Gujarat Embroidery</span>
+      </div>
+      <div class="col-body">
+        <h3>Lehenga Choli Set</h3>
+        <div class="sub">Gharchola · Ages 5–7</div>
+        <div class="col-footer">
+          <span class="price-main">₹1,599 <span class="price-was">₹2,299</span></span>
+          <button class="btn-wa" onclick="orderWA('Lehenga Choli Set — ₹1,599')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=85"
+             alt="Pathani Kurta"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-inspired">Punjab Phulkari</span>
+      </div>
+      <div class="col-body">
+        <h3>Kids Pathani Kurta</h3>
+        <div class="sub">Khadi · Boys Ages 4–8</div>
+        <div class="col-footer">
+          <span class="price-main">₹649 <span class="price-was">₹999</span></span>
+          <button class="btn-wa" onclick="orderWA('Kids Pathani Kurta — ₹649')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=85"
+             alt="Family Matching Set"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-badge">New</span>
+        <span class="col-inspired">Tamil Kanjivaram</span>
+      </div>
+      <div class="col-body">
+        <h3>Family Matching Set</h3>
+        <div class="sub">Silk Blend · All Sizes</div>
+        <div class="col-footer">
+          <span class="price-main">₹2,499 <span class="price-was">₹3,499</span></span>
+          <button class="btn-wa" onclick="orderWA('Family Matching Set — ₹2,499')">Order</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-item">
+      <div class="col-img-wrap">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=85"
+             alt="Sharara Set"
+             onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85'"/>
+        <span class="col-inspired">Banarasi Weave</span>
+      </div>
+      <div class="col-body">
+        <h3>Mini Sharara Set</h3>
+        <div class="sub">Banarasi · Ages 4–6</div>
+        <div class="col-footer">
+          <span class="price-main">₹1,199 <span class="price-was">₹1,799</span></span>
+          <button class="btn-wa" onclick="orderWA('Mini Sharara Set — ₹1,199')">Order</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ CAMPAIGN FULL BLEED ═══════════ -->
+<section class="campaign">
+  <div class="campaign-bg"></div>
+  <div class="campaign-content">
+    <div class="s-tag">Festive Season</div>
+    <h2>
+      Every celebration<br/>
+      deserves to be<br/>
+      <em>unforgettable</em>
+    </h2>
+    <p>
+      Diwali, Eid, Christmas, Navratri, Pongal — whatever the festival,
+      whatever the state — Shikhar has a garment waiting to make it magical.
+    </p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <button class="btn-saffron" onclick="orderWA('Festive Collection enquiry')">Shop the Festival Edit</button>
+      <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INDIA INSPIRATION GRID ═══════════ -->
+<section class="india-features" id="india">
+  <div class="if-header">
+    <div class="s-tag" style="justify-content:center;">Soul of India</div>
+    <h2>Every thread tells a<br/><em>story of Bharat</em></h2>
+    <p>Our designs draw from the art, nature, dance and heritage of every Indian state. This is not just clothing — it is a love letter to India.</p>
+  </div>
+
+  <div class="if-grid">
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1524492412937-b28074a47d70?w=700&q=85"
+           alt="Taj Mahal — UP"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Uttar Pradesh</div>
+        <div class="if-title">Banarasi & Mughal Legacy</div>
+        <div class="if-desc">The weave of Varanasi silks and Mughal court embroidery — eternally beautiful.</div>
+      </div>
+    </div>
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=700&q=85"
+           alt="Kerala"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Kerala</div>
+        <div class="if-title">Kathakali & Backwaters</div>
+        <div class="if-desc">Dramatic colours of Kathakali and the serene green of God's own country.</div>
+      </div>
+    </div>
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=700&q=85"
+           alt="Dal Lake J&K"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Jammu & Kashmir</div>
+        <div class="if-title">Dal Lake & Pashmina</div>
+        <div class="if-desc">The heaven of India — Dal Lake reflections woven into every Kashmiri motif.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="if-grid-wide">
+    <div class="if-item tall">
+      <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=700&q=85"
+           alt="Sundarbans Bengal"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">West Bengal</div>
+        <div class="if-title">Sundarbans — Royal Bengal Tiger</div>
+        <div class="if-desc">The mangrove soul of Bengal — raw, majestic, and untamed.</div>
+      </div>
+    </div>
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1611849029419-6f72ba0b834a?w=700&q=85"
+           alt="Rann of Kutch"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Gujarat</div>
+        <div class="if-title">Rann of Kutch & Gir</div>
+        <div class="if-desc">White desert, Asiatic lion, and the vibrant mirrors of Kutchi embroidery.</div>
+      </div>
+    </div>
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1623000853755-86f7bdadc5f5?w=700&q=85"
+           alt="Pangong Ladakh"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Ladakh</div>
+        <div class="if-title">Pangong — The Blue Mirror</div>
+        <div class="if-desc">Where the sky and earth meet in perfect stillness — the blue that inspires our indigo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- More states row -->
+  <div class="if-grid" style="margin-top:2px;">
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=700&q=85"
+           alt="Odisha Puri"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Odisha</div>
+        <div class="if-title">Jagannath — Puri & Sambalpuri</div>
+        <div class="if-desc">The sacred coast of Puri and the geometric beauty of Sambalpuri weaves.</div>
+      </div>
+    </div>
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=85"
+           alt="Punjab Sikh culture"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Punjab & Haryana</div>
+        <div class="if-title">Sikh Courage & Phulkari</div>
+        <div class="if-desc">The golden spirit of Punjab — Phulkari blooms and the strength of the north.</div>
+      </div>
+    </div>
+    <div class="if-item">
+      <img src="https://images.unsplash.com/photo-1582407947304-fd86f28f3d55?w=700&q=85"
+           alt="Tamil Nadu temple"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+      <div class="if-item-overlay"></div>
+      <div class="if-item-text">
+        <div class="if-state">Tamil Nadu</div>
+        <div class="if-title">Bharatnatyam & Kanjivaram</div>
+        <div class="if-desc">The ancient grace of Bharatnatyam and the shimmer of Kanjivaram silk.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CRAFTSMANSHIP ═══════════ -->
+<section class="craft">
+  <div class="craft-item">
+    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=700&q=85"
+         alt="Fabric craftsmanship"
+         onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+    <div class="craft-overlay">
+      <div class="craft-num">01</div>
+      <div class="craft-sub">Premium Fabrics</div>
+      <div class="craft-title">Natural Cottons & Silk Blends</div>
+    </div>
+  </div>
+  <div class="craft-item">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85"
+         alt="Embroidery craftsmanship"
+         onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+    <div class="craft-overlay">
+      <div class="craft-num">02</div>
+      <div class="craft-sub">Handcraft</div>
+      <div class="craft-title">Embroidered with Love</div>
+    </div>
+  </div>
+  <div class="craft-item">
+    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=700&q=85"
+         alt="Kids comfort fit"
+         onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85'"/>
+    <div class="craft-overlay">
+      <div class="craft-num">03</div>
+      <div class="craft-sub">Comfort First</div>
+      <div class="craft-title">Made for Little Ones</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STATS ═══════════ -->
+<div class="stats-band">
+  <div>
+    <div class="stat-num">15<em>k+</em></div>
+    <div class="stat-lbl">Happy Families</div>
+  </div>
+  <div>
+    <div class="stat-num">28<em>+</em></div>
+    <div class="stat-lbl">States Delivered</div>
+  </div>
+  <div>
+    <div class="stat-num">100<em>%</em></div>
+    <div class="stat-lbl">Natural Fabrics</div>
+  </div>
+  <div>
+    <div class="stat-num">4<em>★</em></div>
+    <div class="stat-lbl">Customer Rating</div>
+  </div>
+</div>
+
+<!-- ═══════════ LOOKBOOK ═══════════ -->
+<section class="lookbook" id="lookbook">
+  <div class="lb-header">
+    <div>
+      <div class="s-tag">Campaign</div>
+      <h2>Spring Lookbook <em>2026</em></h2>
+    </div>
+    <a href="#contact">Order via WhatsApp →</a>
+  </div>
+  <div class="lb-strip">
+    <div class="lb-frame">
+      <img src="https://images.unsplash.com/photo-1537926958-7bb08ba7df68?w=500&q=80" alt="Look 01"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="lb-num">01</div>
+      <div class="lb-caption">Girls Collection · Kerala</div>
+    </div>
+    <div class="lb-frame">
+      <img src="https://images.unsplash.com/photo-1583391733981-8498408ee4b6?w=500&q=80" alt="Look 02"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="lb-num">02</div>
+      <div class="lb-caption">Festive Edit · Rajasthan</div>
+    </div>
+    <div class="lb-frame">
+      <img src="https://images.unsplash.com/photo-1485518882345-15568b007407?w=500&q=80" alt="Look 03"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="lb-num">03</div>
+      <div class="lb-caption">Heritage · Varanasi</div>
+    </div>
+    <div class="lb-frame">
+      <img src="https://images.unsplash.com/photo-1622290291165-a0bee4c80a9e?w=500&q=80" alt="Look 04"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="lb-num">04</div>
+      <div class="lb-caption">Kids Special · Gujarat</div>
+    </div>
+    <div class="lb-frame">
+      <img src="https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=500&q=80" alt="Look 05"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="lb-num">05</div>
+      <div class="lb-caption">Modern Classic · Punjab</div>
+    </div>
+    <div class="lb-frame">
+      <img src="https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=500&q=80" alt="Look 06"
+           onerror="this.src='https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80'"/>
+      <div class="lb-num">06</div>
+      <div class="lb-caption">Anarkali · Lucknow</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="s-tag" style="justify-content:center;">Order Now</div>
+    <h2>Ready to <em>dress</em><br/>your little one?</h2>
+    <p>
+      No complicated checkout. Just click the button below, tell us what you want,
+      and we'll handle everything on WhatsApp — fast, personal, and easy.
+    </p>
+    <button class="wa-btn" onclick="orderWA('I want to browse Shikhar Clothing collection')">
+      <span class="wa-icon">💬</span>
+      Order on WhatsApp
+    </button>
+    <div class="contact-details">
+      <div class="cd-item">
+        <label>Email</label>
+        <span>info@shikharclothing.com</span>
+      </div>
+      <div class="cd-item">
+        <label>WhatsApp</label>
+        <span>+91-XXXXXXXXXX</span>
+      </div>
+      <div class="cd-item">
+        <label>Delivery</label>
+        <span>Pan India · 3–7 Days</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold"/>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo-main">SHIKHAR</span>
+      <span class="logo-sub">S · H · I · K · H · A · R</span>
+      <p>
+        Born from the colours, culture, and spirit of every corner of India.
+        Premium ethnic wear for little ones and the whole family.
+      </p>
+    </div>
+    <div class="f-col">
+      <h5>Collection</h5>
+      <a href="#collection">Girls Ethnic</a>
+      <a href="#collection">Boys Kurta</a>
+      <a href="#collection">Festive Specials</a>
+      <a href="#collection">Family Sets</a>
+      <a href="#collection">New Arrivals</a>
+    </div>
+    <div class="f-col">
+      <h5>About</h5>
+      <a href="#india">Soul of India</a>
+      <a href="#india">Our Craftsmanship</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <div class="f-col">
+      <h5>Customer Care</h5>
+      <a href="#contact">WhatsApp Order</a>
+      <a href="#">Size Guide</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Returns & Exchanges</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Shikhar Clothing — The Soul of India, Worn.</p>
+    <div class="social-row">
+      <a href="#">Instagram</a>
+      <a href="#">Pinterest</a>
+      <a href="#">Facebook</a>
+      <a href="#">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+/* Cursor */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  }, 70);
+});
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.width='16px'; cur.style.height='16px';
+    ring.style.width='48px'; ring.style.height='48px';
+    ring.style.borderColor='rgba(232,117,10,.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.width='8px'; cur.style.height='8px';
+    ring.style.width='32px'; ring.style.height='32px';
+    ring.style.borderColor='rgba(232,117,10,.5)';
+  });
+});
+
+/* Sticky nav */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* Drawer */
+function openDrawer()  { document.getElementById('drawer').classList.add('open'); }
+function closeDrawer() { document.getElementById('drawer').classList.remove('open'); }
+
+/* WhatsApp ordering */
+function orderWA(item) {
+  const phone = '919999999999'; // REPLACE with your actual WhatsApp number (country code + number, no +)
+  const msg = encodeURIComponent(
+    'Hello Shikhar Clothing! 🙏\n\nI am interested in: ' + item +
+    '\n\nPlease share more details about size, availability, and delivery.'
+  );
+  window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
+}
+
+/* Scroll reveal — simple intersection observer */
+const reveals = document.querySelectorAll('.col-item,.if-item,.stat-num,.craft-item,.i-card');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.12});
+
+reveals.forEach((el,i) => {
+  el.style.opacity='0';
+  el.style.transform='translateY(30px)';
+  el.style.transition=`opacity .7s ease ${(i % 4)*0.1}s, transform .7s ease ${(i % 4)*0.1}s`;
+  obs.observe(el);
+});
+</script>
+
+</body>
+</html>
