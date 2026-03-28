@@ -8,6 +8,6 @@ It includes:
 - About Us
 - Contact info
 
-Perfect for kids like 4.5-year-old girls! 😊
+Perfect for kids and adult especially 4.5-year-old girls! 😊
 
 Live site coming soon via GitHub Pages!
