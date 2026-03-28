@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SHIKHAR</title>
+
+<style>
+body {margin:0; font-family:Arial; background:#0b0b0b; color:white;}
+nav {display:flex; justify-content:space-between; padding:20px;}
+a {color:white; text-decoration:none; margin:10px;}
+
+.hero {
+  height:100vh;
+  background:url('images/hero.jpg') center/cover;
+  display:flex; justify-content:center; align-items:center;
+  font-size:50px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+.card img {
+  width:100%;
+  height:250px;
+  object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<h2>SHIKHAR</h2>
+<div>
+<a href="saree.html">Saree</a>
+<a href="shirts.html">Shirts</a>
+<a href="pants.html">Pants</a>
+<a href="earrings.html">Earrings</a>
+<a href="contact.html">Contact</a>
+</div>
+</nav>
+
+<div class="hero">SHIKHAR</div>
+
+<h2 style="text-align:center;">COLLECTION</h2>
+
+<div class="grid">
+
+<div class="card">
+<a href="saree.html">
+<img src="images/saree1.jpg">
+</a>
+<p>Sarees</p>
+</div>
+
+<div class="card">
+<a href="shirts.html">
+<img src="images/shirt1.jpg">
+</a>
+<p>Shirts</p>
+</div>
+
+<div class="card">
+<a href="pants.html">
+<img src="images/pants1.jpg">
+</a>
+<p>Pants</p>
+</div>
+
+<div class="card">
+<a href="earrings.html">
+<img src="images/earrings1.jpg">
+</a>
+<p>Earrings</p>
+</div>
+
+</div>
+
+</body>
+</html>
