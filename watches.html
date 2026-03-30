@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watches Collection — SHIKHARA™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;800;900&family=Jost:wght@200;300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--bg2:#0f0b06;--cream:#f5f0e8;--cream-dim:rgba(245,240,232,0.6);--muted:#8a7a60;--border:rgba(201,168,76,0.18);}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}*{cursor:none!important;}html{scroll-behavior:smooth;}
+    body{background:#080603;color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;}
+    #cursor-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;}
+    #cursor-ring{width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transition:width 0.3s,height 0.3s,border-color 0.3s;}
+    body.hovering #cursor-ring{width:52px;height:52px;border-color:var(--gold);}
+    .watermark{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Noto Serif Devanagari',serif;font-size:0.75rem;letter-spacing:0.15em;color:rgba(201,168,76,0.1);pointer-events:none;z-index:50;user-select:none;writing-mode:vertical-rl;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.4rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background 0.5s,padding 0.3s;}
+    nav.scrolled{background:rgba(8,6,3,0.97);backdrop-filter:blur(20px);padding:0.9rem 4rem;border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;flex-direction:column;text-decoration:none;line-height:1;}
+    .nav-logo-main{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.35em;color:var(--gold);}
+    .nav-logo-sub{font-family:'Noto Serif Devanagari',serif;font-size:0.5rem;letter-spacing:0.2em;color:rgba(201,168,76,0.4);text-align:center;margin-top:0.1rem;}
+    .nav-center{display:flex;gap:3rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-center a{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(245,240,232,0.6);text-decoration:none;font-family:'Cinzel',serif;transition:color 0.3s;position:relative;padding-bottom:2px;}
+    .nav-center a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+    .nav-center a:hover,.nav-center a.active{color:var(--gold);}
+    .nav-center a:hover::after,.nav-center a.active::after{width:100%;}
+    .nav-back{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.5rem 1.2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .nav-back:hover{background:var(--gold);color:#080603;}
+    .page-hero{height:55vh;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 40% 50%,rgba(40,20,80,0.6) 0%,transparent 60%),radial-gradient(ellipse at 75% 30%,rgba(201,168,76,0.1) 0%,transparent 50%),linear-gradient(160deg,#080510,#080603,#050308);}
+    .page-hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,transparent,transparent 30px,rgba(201,168,76,0.02) 30px,rgba(201,168,76,0.02) 31px);}
+    .page-hero-content{position:relative;z-index:2;}
+    .page-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+    .page-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,8vw,6rem);letter-spacing:0.2em;background:linear-gradient(135deg,#d4b86a,#f0dfa0,#c9a84c,#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+    .page-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--muted);letter-spacing:0.2em;margin-top:0.5rem;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
+    .breadcrumb{display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-top:1.5rem;opacity:0;animation:fadeUp 1s ease 0.9s forwards;}
+    .breadcrumb a{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+    .breadcrumb a:hover{color:var(--gold);}
+    .breadcrumb span{font-size:0.55rem;color:rgba(138,122,96,0.4);}
+    .strip{background:var(--gold);padding:0.6rem 0;overflow:hidden;}
+    .strip-inner{display:inline-block;white-space:nowrap;animation:marqueeScroll 30s linear infinite;font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.35em;color:#080603;font-weight:600;}
+    .filter-bar{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;padding:3rem 2rem 0;}
+    .filter-btn{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.5rem 1.4rem;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.3s;}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+    .section-head{text-align:center;padding:4rem 2rem 2.5rem;}
+    .section-label{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;justify-content:center;gap:1rem;}
+    .section-label::before,.section-label::after{content:'';width:30px;height:1px;background:var(--gold);opacity:0.4;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);margin-top:0.8rem;}
+    .section-title em{font-style:italic;color:var(--gold);}
+    /* Watches — horizontal feature layout */
+    .watches-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;padding:0 1.5px;max-width:1400px;margin:0 auto 3rem;}
+    .watch-card{position:relative;overflow:hidden;aspect-ratio:16/9;text-decoration:none;display:block;}
+    .watch-card-bg{position:absolute;inset:0;transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);}
+    .watch-card:hover .watch-card-bg{transform:scale(1.05);}
+    .wc1 .watch-card-bg{background:radial-gradient(ellipse at 30% 50%,rgba(80,45,10,0.6),transparent 60%),linear-gradient(160deg,#1a0e03,#0d0802);}
+    .wc2 .watch-card-bg{background:radial-gradient(ellipse at 70% 40%,rgba(20,20,80,0.6),transparent 60%),linear-gradient(160deg,#060610,#040408);}
+    .wc3 .watch-card-bg{background:radial-gradient(ellipse at 40% 60%,rgba(10,60,40,0.5),transparent 60%),linear-gradient(160deg,#030f08,#020a05);}
+    .wc4 .watch-card-bg{background:radial-gradient(ellipse at 60% 30%,rgba(80,10,40,0.5),transparent 60%),linear-gradient(160deg,#14040a,#0a0306);}
+    .watch-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.3) 50%,transparent 100%);}
+    .watch-tag{position:absolute;top:2rem;left:2rem;font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);background:rgba(8,6,3,0.75);padding:0.3rem 0.8rem;border:1px solid var(--border);}
+    .watch-icon{position:absolute;right:3rem;top:50%;transform:translateY(-50%);font-size:5rem;opacity:0.1;transition:opacity 0.5s;}
+    .watch-card:hover .watch-icon{opacity:0.2;}
+    .watch-info{position:absolute;bottom:0;left:0;top:0;display:flex;flex-direction:column;justify-content:center;padding:2.5rem 2.5rem;}
+    .watch-type{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+    .watch-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);margin-bottom:0.5rem;}
+    .watch-desc{font-size:0.7rem;color:rgba(245,240,232,0.5);line-height:1.6;max-width:300px;}
+    .watch-features{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
+    .watch-feat{font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.5);}
+    .watch-action{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-8px);transition:opacity 0.4s,transform 0.4s;}
+    .watch-card:hover .watch-action{opacity:1;transform:translateX(0);}
+    .action-line{width:20px;height:1px;background:var(--gold);transition:width 0.3s;}
+    .watch-card:hover .action-line{width:35px;}
+    /* Small watch sub-grid */
+    .watches-sub{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;padding:0 1.5px;max-width:1400px;margin:0 auto 6rem;}
+    .watch-sub-card{position:relative;overflow:hidden;aspect-ratio:1;text-decoration:none;display:block;}
+    .watch-sub-bg{position:absolute;inset:0;transition:transform 0.7s ease;}
+    .watch-sub-card:hover .watch-sub-bg{transform:scale(1.08);}
+    .ws1 .watch-sub-bg{background:linear-gradient(160deg,#12100502,#080702);}
+    .ws2 .watch-sub-bg{background:linear-gradient(160deg,#050810,#030507);}
+    .ws3 .watch-sub-bg{background:linear-gradient(160deg,#0a0305,#060203);}
+    .ws4 .watch-sub-bg{background:linear-gradient(160deg,#030810,#02050a);}
+    .watch-sub-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,transparent 70%);}
+    .watch-sub-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3rem;opacity:0.1;transition:opacity 0.4s;}
+    .watch-sub-card:hover .watch-sub-icon{opacity:0.2;}
+    .watch-sub-info{position:absolute;bottom:0;left:0;right:0;padding:1.2rem;}
+    .watch-sub-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--cream);margin-bottom:0.2rem;}
+    .watch-sub-desc{font-size:0.58rem;color:rgba(245,240,232,0.4);}
+    .subcat-section{max-width:1200px;margin:0 auto;padding:4rem;}
+    .subcat-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);border-bottom:1px solid var(--border);padding-bottom:1rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;}
+    .subcat-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+    .subcat-items{display:flex;flex-wrap:wrap;gap:0.8rem;}
+    .subcat-item{padding:0.6rem 1.4rem;border:1px solid var(--border);font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);transition:all 0.3s;text-decoration:none;}
+    .subcat-item:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+    .contact-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem;text-align:center;margin-top:4rem;}
+    .contact-strip h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);margin-bottom:0.5rem;}
+    .contact-strip p{font-size:0.75rem;color:var(--muted);margin-bottom:2rem;}
+    .contact-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+    .contact-link{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.8rem 2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .contact-link:hover{background:var(--gold);color:#080603;}
+    footer{background:#050402;border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;}
+    footer p{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;color:rgba(138,122,96,0.4);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    @media(max-width:900px){.watches-grid{grid-template-columns:1fr;}.watches-sub{grid-template-columns:1fr 1fr;}.nav-center{display:none;}nav{padding:1.2rem 2rem;}nav.scrolled{padding:0.8rem 2rem;}.subcat-section{padding:3rem 2rem;}}
+    @media(max-width:600px){.watches-sub{grid-template-columns:1fr 1fr;}.contact-strip{padding:3rem 1.5rem;}}
+  </style>
+</head>
+<body>
+  <div id="cursor-dot"></div><div id="cursor-ring"></div>
+  <div class="watermark">शिखर · Shikhar</div>
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html"><span class="nav-logo-main">SHIKHARA</span><span class="nav-logo-sub">शिखर · by Shikhar</span></a>
+    <ul class="nav-center">
+      <li><a href="men.html">Men</a></li>
+      <li><a href="women.html">Women</a></li>
+      <li><a href="jewelry.html">Jewellery</a></li>
+      <li><a href="watches.html" class="active">Watches</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← Home</a>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div><div class="page-hero-pattern"></div>
+    <div class="page-hero-content">
+      <p class="page-eyebrow">SHIKHARA Presents</p>
+      <h1 class="page-title">Watches</h1>
+      <p class="page-sub">Time, Elevated. Craft, Honoured.</p>
+      <div class="breadcrumb"><a href="index.html">Home</a><span>·</span><span style="color:var(--gold);font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;">Watches</span></div>
+    </div>
+  </section>
+
+  <div class="strip"><div class="strip-inner">&nbsp;&nbsp;LEATHER WATCHES&nbsp;&nbsp;·&nbsp;&nbsp;SLEEK WATCHES&nbsp;&nbsp;·&nbsp;&nbsp;CHAIN WATCHES&nbsp;&nbsp;·&nbsp;&nbsp;SMARTWATCHES&nbsp;&nbsp;·&nbsp;&nbsp;HERITAGE DIALS&nbsp;&nbsp;·&nbsp;&nbsp;LUXURY TIMEPIECES&nbsp;&nbsp;·&nbsp;&nbsp;LEATHER WATCHES&nbsp;&nbsp;·&nbsp;&nbsp;SLEEK WATCHES&nbsp;&nbsp;·&nbsp;&nbsp;CHAIN WATCHES&nbsp;&nbsp;·&nbsp;&nbsp;SMARTWATCHES&nbsp;&nbsp;·&nbsp;&nbsp;HERITAGE DIALS&nbsp;&nbsp;·&nbsp;&nbsp;LUXURY TIMEPIECES&nbsp;&nbsp;·&nbsp;&nbsp;</div></div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Leather</button>
+    <button class="filter-btn">Sleek</button>
+    <button class="filter-btn">Chain</button>
+    <button class="filter-btn">Smartwatch</button>
+  </div>
+
+  <div class="section-head">
+    <p class="section-label">Watch Collections</p>
+    <h2 class="section-title">Time Told in <em>Indian Craft</em></h2>
+  </div>
+
+  <div class="watches-grid">
+    <a class="watch-card wc1" href="#"><div class="watch-card-bg"></div><div class="watch-overlay"></div><span class="watch-tag">Heritage</span><div class="watch-icon">⌚</div><div class="watch-info"><p class="watch-type">Leather Collection</p><h3 class="watch-name">Heritage Leather</h3><p class="watch-desc">Hand-stitched genuine leather strap · Classic round dial · Inspired by vintage Indian craftsmanship</p><div class="watch-features"><span class="watch-feat">Genuine Leather</span><span class="watch-feat">Sapphire Glass</span><span class="watch-feat">Water Resistant</span></div><div class="watch-action"><div class="action-line"></div>Explore</div></div></a>
+    <a class="watch-card wc2" href="#"><div class="watch-card-bg"></div><div class="watch-overlay"></div><span class="watch-tag">Minimal</span><div class="watch-icon">🕐</div><div class="watch-info"><p class="watch-type">Sleek Collection</p><h3 class="watch-name">Ultra Sleek</h3><p class="watch-desc">Ultra-thin profile · Stainless steel case · Minimalist Indian motif dial · Modern luxury</p><div class="watch-features"><span class="watch-feat">5mm Thin</span><span class="watch-feat">Steel Case</span><span class="watch-feat">Indian Motif Dial</span></div><div class="watch-action"><div class="action-line"></div>Explore</div></div></a>
+    <a class="watch-card wc3" href="#"><div class="watch-card-bg"></div><div class="watch-overlay"></div><span class="watch-tag">Bold</span><div class="watch-icon">⛓️</div><div class="watch-info"><p class="watch-type">Chain Collection</p><h3 class="watch-name">Royal Chain</h3><p class="watch-desc">Metal bracelet strap · Bold statement dial · Gold-tone details · For those who command attention</p><div class="watch-features"><span class="watch-feat">Metal Bracelet</span><span class="watch-feat">Gold Tone</span><span class="watch-feat">Bold Dial</span></div><div class="watch-action"><div class="action-line"></div>Explore</div></div></a>
+    <a class="watch-card wc4" href="#"><div class="watch-card-bg"></div><div class="watch-overlay"></div><span class="watch-tag">Smart</span><div class="watch-icon">📱</div><div class="watch-info"><p class="watch-type">Smartwatch Collection</p><h3 class="watch-name">SHIKHARA Smart</h3><p class="watch-desc">Premium connected timepiece · AMOLED display · Heritage-inspired bezel · Fitness & notifications</p><div class="watch-features"><span class="watch-feat">AMOLED</span><span class="watch-feat">Health Monitor</span><span class="watch-feat">7-Day Battery</span></div><div class="watch-action"><div class="action-line"></div>Explore</div></div></a>
+  </div>
+
+  <!-- Sub-types -->
+  <div class="watches-sub">
+    <a class="watch-sub-card ws1" href="#"><div class="watch-sub-bg"></div><div class="watch-sub-overlay"></div><div class="watch-sub-icon">🟤</div><div class="watch-sub-info"><h4 class="watch-sub-name">Brown Leather</h4><p class="watch-sub-desc">Tan & walnut tones</p></div></a>
+    <a class="watch-sub-card ws2" href="#"><div class="watch-sub-bg"></div><div class="watch-sub-overlay"></div><div class="watch-sub-icon">⚫</div><div class="watch-sub-info"><h4 class="watch-sub-name">Black Leather</h4><p class="watch-sub-desc">Formal · Night edition</p></div></a>
+    <a class="watch-sub-card ws3" href="#"><div class="watch-sub-bg"></div><div class="watch-sub-overlay"></div><div class="watch-sub-icon">🥇</div><div class="watch-sub-info"><h4 class="watch-sub-name">Gold Chain</h4><p class="watch-sub-desc">Statement piece</p></div></a>
+    <a class="watch-sub-card ws4" href="#"><div class="watch-sub-bg"></div><div class="watch-sub-overlay"></div><div class="watch-sub-icon">⚪</div><div class="watch-sub-info"><h4 class="watch-sub-name">Silver Chain</h4><p class="watch-sub-desc">Modern & versatile</p></div></a>
+  </div>
+
+  <div class="subcat-section">
+    <h3 class="subcat-title">Browse by Style</h3>
+    <div class="subcat-items">
+      <a href="#" class="subcat-item">Brown Leather Strap</a>
+      <a href="#" class="subcat-item">Black Leather Strap</a>
+      <a href="#" class="subcat-item">Crocodile Print</a>
+      <a href="#" class="subcat-item">Ultra Thin Sleek</a>
+      <a href="#" class="subcat-item">Minimalist Dial</a>
+      <a href="#" class="subcat-item">Gold Chain Bracelet</a>
+      <a href="#" class="subcat-item">Silver Chain Bracelet</a>
+      <a href="#" class="subcat-item">SHIKHARA Smart Pro</a>
+      <a href="#" class="subcat-item">Smart Classic Edition</a>
+      <a href="#" class="subcat-item">Heritage Dial</a>
+      <a href="#" class="subcat-item">Chronograph</a>
+      <a href="#" class="subcat-item">Limited Editions</a>
+    </div>
+  </div>
+
+  <div class="contact-strip">
+    <h3>Looking for a Specific Watch?</h3>
+    <p>Contact us for availability, customisation, or exclusive editions.</p>
+    <div class="contact-links">
+      <a href="tel:+919106231032" class="contact-link">📞 Call Us</a>
+      <a href="mailto:devildeniedd2@gmail.com" class="contact-link">✉️ Email Us</a>
+      <a href="contact.html" class="contact-link">Contact Page →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SHIKHARA™ — All Rights Reserved · Founded by Shikhar</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.75rem;color:rgba(201,168,76,0.3);">A Shikhar Creation</p>
+  </footer>
+  <script>
+    const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx-4+'px';dot.style.top=my-4+'px';});
+    (function a(){rx+=(mx-rx-16)*0.15;ry+=(my-ry-16)*0.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    const nav=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+    document.querySelectorAll('.filter-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});});
+  </script>
+</body>
+</html>
