@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Men — SHIKHARA™</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background:#0a0a0a;
+  color:#f5f0e8;
+  font-family:'Jost',sans-serif;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 20px;
+  border-bottom:1px solid #333;
+}
+nav a{
+  color:#c9a84c;
+  text-decoration:none;
+  font-size:14px;
+}
+
+/* HERO (MODEL IMAGE) */
+.hero{
+  height:300px;
+  background:url('IMG_20260330_155243.jpg') center/cover no-repeat;
+  display:flex;
+  align-items:end;
+}
+.hero-text{
+  background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+  width:100%;
+  padding:20px;
+}
+.hero-text h1{
+  margin:0;
+  font-family:'Cinzel',serif;
+  letter-spacing:4px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  padding:12px;
+}
+
+/* CARD */
+.card{
+  position:relative;
+  height:260px;
+  overflow:hidden;
+}
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.overlay{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:10px;
+  background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);
+}
+.title{
+  font-size:16px;
+}
+.desc{
+  font-size:11px;
+  color:#bbb;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">← Home</a>
+  <a href="women.html">Women</a>
+</nav>
+
+<!-- HERO MODEL IMAGE -->
+<div class="hero">
+  <div class="hero-text">
+    <h1>MEN'S COLLECTION</h1>
+    <p>Modern Indian Luxury</p>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- SHIRT -->
+  <div class="card">
+    <img src="IMG_20260330_155243.jpg">
+    <div class="overlay">
+      <div class="title">Classic Shirt</div>
+      <div class="desc">Madhya Pradesh inspired · clean minimal luxury</div>
+    </div>
+  </div>
+
+  <!-- TROUSER -->
+  <div class="card">
+    <img src="IMG_20260330_155243.jpg">
+    <div class="overlay">
+      <div class="title">Tailored Trousers</div>
+      <div class="desc">Modern India · sharp structured fit</div>
+    </div>
+  </div>
+
+  <!-- KURTA -->
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/0f/3b/f8/0f3bf8b2b41a5007f89118491d7cfc4d.jpg">
+    <div class="overlay">
+      <div class="title">Chikankari Kurta</div>
+      <div class="desc">Lucknow · heritage embroidery</div>
+    </div>
+  </div>
+
+  <!-- SHERWANI -->
+  <div class="card">
+    <img src="https://i.pinimg.com/736x/7a/5d/6c/7a5d6ccdcf3de0bac0f3854ce3d1ee7c.jpg">
+    <div class="overlay">
+      <div class="title">Royal Sherwani</div>
+      <div class="desc">Rajasthan · wedding wear</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © SHIKHARA™ — Built by Shikhar
+</footer>
+
+</body>
+</html>
