@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="SHIKHARA — Indian Luxury Fashion House. Premium traditional Indian clothing, jewellery and watches. Founded by Shikhar."/>
+  <meta name="keywords" content="Indian luxury fashion, traditional Indian clothing, SHIKHARA, Shikhar, saree, lehenga, kurta, sherwani, Indian jewellery"/>
+  <title>SHIKHARA™ — The Summit of Indian Luxury</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;700;800;900&family=Jost:wght@200;300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ════════════════════════════════════════════
+       DESIGN TOKENS
+    ════════════════════════════════════════════ */
+    :root {
+      --gold:       #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dim:   rgba(201,168,76,0.15);
+      --deep:       #08060300;
+      --bg:         #08060302;
+      --bg2:        #0f0b06;
+      --bg3:        #160f08;
+      --cream:      #f5f0e8;
+      --cream-dim:  rgba(245,240,232,0.6);
+      --muted:      #8a7a60;
+      --accent:     #6b1f1f;
+      --accent2:    #1f3d2a;
+      --border:     rgba(201,168,76,0.18);
+      --shadow:     0 25px 60px rgba(0,0,0,0.7);
+    }
+
+    *, *::before, *::after {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: #08060302;
+      background: linear-gradient(180deg, #080603 0%, #0f0b06 100%);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════════════════
+       CUSTOM CURSOR
+    ════════════════════════════════════════════ */
+    * { cursor: none !important; }
+
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 99999;
+      transition: transform 0.1s ease;
+    }
+
+    #cursor-ring {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(201,168,76,0.5);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 99998;
+      transition: transform 0.15s ease, width 0.3s, height 0.3s, border-color 0.3s;
+    }
+
+    body.hovering #cursor-ring {
+      width: 52px; height: 52px;
+      border-color: var(--gold);
+    }
+
+    /* ════════════════════════════════════════════
+       GRAIN OVERLAY
+    ════════════════════════════════════════════ */
+    .grain {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9990;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ════════════════════════════════════════════
+       WATERMARK SIGNATURE
+    ════════════════════════════════════════════ */
+    .watermark {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: rgba(201,168,76,0.12);
+      pointer-events: none;
+      z-index: 50;
+      user-select: none;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    /* ════════════════════════════════════════════
+       NAVBAR
+    ════════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 1.4rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.5s, padding 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(8,6,3,0.97);
+      backdrop-filter: blur(20px);
+      padding: 0.9rem 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex; flex-direction: column;
+      text-decoration: none; line-height: 1;
+    }
+
+    .nav-logo-main {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+    }
+
+    .nav-logo-sub {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: rgba(201,168,76,0.45);
+      text-align: center;
+      margin-top: 0.1rem;
+    }
+
+    .nav-center {
+      display: flex; gap: 3rem;
+      list-style: none;
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+    }
+
+    .nav-center a {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      transition: color 0.3s;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-center a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .nav-center a:hover { color: var(--gold); }
+    .nav-center a:hover::after { width: 100%; }
+
+    .nav-right {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+
+    .nav-contact-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.2rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-contact-btn:hover {
+      background: var(--gold);
+      color: #080603;
+    }
+
+    /* ════════════════════════════════════════════
+       IMPROVED HERO - BETTER ON MOBILE
+    ════════════════════════════════════════════ */
+    .hero {
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding-top: 70px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 60%, rgba(107,31,31,0.35) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 85% 25%, rgba(201,168,76,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(31,61,42,0.2) 0%, transparent 60%),
+        linear-gradient(175deg, #0d0905 0%, #080603 40%, #0d0a05 100%);
+    }
+
+    .hero-mandala {
+      position: absolute;
+      width: 700px; height: 700px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.04;
+      animation: spin 120s linear infinite;
+    }
+
+    .hero-mandala svg { width: 100%; height: 100%; }
+
+    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    .hero-lines {
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 60px,
+          rgba(201,168,76,0.02) 60px,
+          rgba(201,168,76,0.02) 61px
+        );
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 1.5rem;
+      max-width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      letter-spacing: 0.2em;
+      line-height: 0.85;
+      margin: 0.3rem 0;
+      background: linear-gradient(
+        135deg,
+        #d4b86a 0%,
+        #f0dfa0 25%,
+        #c9a84c 50%,
+        #e8c97a 75%,
+        #b8943c 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
+      filter: drop-shadow(0 0 40px rgba(201,168,76,0.2));
+    }
+
+    .hero-devanagari {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: clamp(1.1rem, 4vw, 1.8rem);
+      color: rgba(201,168,76,0.4);
+      letter-spacing: 0.3em;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+    }
+
+    .hero-rule {
+      display: flex; align-items: center; gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 1s forwards;
+    }
+
+    .hero-rule-line {
+      width: 80px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+
+    .hero-rule-line:last-child {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+
+    .hero-rule-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .hero-tagline {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 1.1s forwards;
+    }
+
+    .hero-states {
+      display: flex; gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 1.2s forwards;
+    }
+
+    .hero-state {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.35);
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1.2rem;
+      justify-content: center;
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 1.4s forwards;
+    }
+
+    .btn-primary {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #080603;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      transition: opacity 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    .btn-secondary {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold-dim);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 2s forwards;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+    }
+
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ════════════════════════════════════════════
+       ANNOUNCEMENT STRIP
+    ════════════════════════════════════════════ */
+    .strip {
+      background: var(--gold);
+      padding: 0.65rem 0;
+      overflow: hidden;
+    }
+
+    .strip-inner {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marqueeScroll 35s linear infinite;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: #080603;
+      font-weight: 600;
+    }
+
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ════════════════════════════════════════════
+       SECTION COMMONS
+    ════════════════════════════════════════════ */
+    .section-head {
+      text-align: center;
+      padding: 6rem 2rem 3.5rem;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+
+    .section-label::before, .section-label::after {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-top: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* ════════════════════════════════════════════
+       CATEGORY GRID
+    ════════════════════════════════════════════ */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr 1.2fr;
+      gap: 2px;
+      padding: 0 2px;
+      max-width: 1600px;
+      margin: 0 auto 2px;
+    }
+
+    .cat-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 2/3;
+      text-decoration: none;
+      display: block;
+    }
+
+    .cat-card-inner {
+      position: absolute; inset: 0;
+      transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    .cat-card:hover .cat-card-inner { transform: scale(1.07); }
+
+    /* Individual card backgrounds */
+    .cat-men .cat-card-inner {
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(107,31,31,0.6) 0%, transparent 60%),
+        linear-gradient(160deg, #120608 0%, #200a0a 50%, #0a0306 100%);
+    }
+
+    .cat-women .cat-card-inner {
+      background:
+        radial-gradient(ellipse at 70% 30%, rgba(120,80,20,0.5) 0%, transparent 60%),
+        linear-gradient(160deg, #110b02 0%, #1e1205 50%, #0c0802 100%);
+    }
+
+    .cat-jewelry .cat-card-inner {
+      background:
+        radial-gradient(ellipse at 40% 60%, rgba(20,80,80,0.5) 0%, transparent 60%),
+        linear-gradient(160deg, #040f0f 0%, #082020 50%, #030a0a 100%);
+    }
+
+    .cat-watches .cat-card-inner {
+      background:
+        radial-gradient(ellipse at 60% 40%, rgba(40,20,80,0.5) 0%, transparent 60%),
+        linear-gradient(160deg, #080510 0%, #120a1e 50%, #050310 100%);
+    }
+
+    /* Pattern overlay per card */
+    .cat-pattern {
+      position: absolute; inset: 0;
+      opacity: 0.06;
+      transition: opacity 0.5s;
+    }
+
+    .cat-card:hover .cat-pattern { opacity: 0.12; }
+
+    .cat-men .cat-pattern {
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(201,168,76,1) 20px, rgba(201,168,76,1) 21px),
+        repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(201,168,76,1) 20px, rgba(201,168,76,1) 21px);
+    }
+
+    .cat-women .cat-pattern {
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(201,168,76,1) 15px, rgba(201,168,76,1) 16px);
+    }
+
+    .cat-jewelry .cat-pattern {
+      background-image: radial-gradient(circle, rgba(201,168,76,1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .cat-watches .cat-pattern {
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(201,168,76,1) 15px, rgba(201,168,76,1) 16px);
+    }
+
+    /* Card content */
+    .cat-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem 1.8rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    }
+
+    .cat-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 6rem;
+      opacity: 0.07;
+      transition: opacity 0.5s, transform 0.5s;
+      pointer-events: none;
+    }
+
+    .cat-card:hover .cat-icon {
+      opacity: 0.13;
+      transform: translate(-50%, -52%);
+    }
+
+    .cat-region {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .cat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .cat-sub {
+      font-size: 0.65rem;
+      color: rgba(245,240,232,0.45);
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+    }
+
+    .cat-link {
+      display: inline-flex;
+      align-items: center; gap: 0.5rem;
+      margin-top: 1.2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    .cat-card:hover .cat-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cat-link-line {
+      width: 20px; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .cat-card:hover .cat-link-line { width: 35px; }
+
+    /* Number badge */
+    .cat-number {
+      position: absolute;
+      top: 1.5rem; left: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      color: rgba(201,168,76,0.3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ════════════════════════════════════════════
+       HERITAGE MARQUEE
+    ════════════════════════════════════════════ */
+    .heritage-marquee {
+      padding: 4rem 0;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 4rem;
+      animation: marqueeScroll 25s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-item {
+      flex-shrink: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-style: italic;
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.25);
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    .marquee-dot {
+      flex-shrink: 0;
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      align-self: center;
+      opacity: 0.3;
+    }
+
+    /* ════════════════════════════════════════════
+       BRAND STORY
+    ════════════════════════════════════════════ */
+    .story-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .story-visual {
+      position: relative;
+      height: 550px;
+    }
+
+    .story-frame-a {
+      position: absolute;
+      top: 0; left: 0;
+      width: 75%; height: 80%;
+      background: linear-gradient(135deg, #1a0d06, #0d0805);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .story-frame-a-inner {
+      font-size: 7rem;
+      opacity: 0.15;
+    }
+
+    /* Gold corner ornaments */
+    .story-frame-a::before, .story-frame-a::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.5;
+    }
+
+    .story-frame-a::before { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+    .story-frame-a::after  { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+    .story-frame-b {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 55%; height: 45%;
+      background: linear-gradient(135deg, #0d1a0d, #060d06);
+      border: 1px solid rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      opacity: 0.8;
+    }
+
+    .story-gold-text {
+      position: absolute;
+      bottom: 3rem; left: -2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 5rem;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.12);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .story-text-content { }
+
+    .story-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+    }
+
+    .story-body {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: var(--cream-dim);
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .state-pills {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .state-pill {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      transition: background 0.3s;
+    }
+
+    .state-pill:hover { background: var(--gold-dim); }
+
+    /* ════════════════════════════════════════════
+       CRAFT HIGHLIGHTS
+    ════════════════════════════════════════════ */
+    .crafts-section {
+      background: var(--bg2);
+      padding: 6rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .crafts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding: 0 4rem;
+    }
+
+    .craft-item {
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--border);
+      margin: -1px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+
+    .craft-item:hover { background: rgba(201,168,76,0.04); }
+
+    .craft-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 3rem;
+      color: rgba(201,168,76,0.08);
+      line-height: 1;
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+    }
+
+    .craft-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+    .craft-state {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .craft-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .craft-desc {
+      font-size: 0.72rem;
+      color: var(--cream-dim);
+      line-height: 1.7;
+    }
+
+    /* ════════════════════════════════════════════
+       CONTACT SECTION
+    ════════════════════════════════════════════ */
+    .contact-section {
+      padding: 6rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .contact-card {
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s;
+    }
+
+    .contact-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-3px);
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold-dim);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .contact-card:hover::before { opacity: 1; }
+
+    .contact-card-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      position: relative; z-index: 1;
+    }
+
+    .contact-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      display: block;
+      position: relative; z-index: 1;
+    }
+
+    .contact-card-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      position: relative; z-index: 1;
+    }
+
+    .contact-card-value a {
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-card-value a:hover { color: var(--gold); }
+
+    .contact-hours {
+      margin-top: 2.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      font-family: 'Cinzel', serif;
+      text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════════
+       MODAL
+    ════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: linear-gradient(135deg, #120d07, #0d0905);
+      border: 1px solid var(--border);
+      max-width: 540px;
+      width: 90%;
+      padding: 3.5rem;
+      position: relative;
+      transform: translateY(30px) scale(0.97);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Corner ornaments */
+    .modal::before, .modal::after {
+      content: '';
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--gold);
+      border-style: solid;
+      opacity: 0.4;
+    }
+
+    .modal::before { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+    .modal::after  { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      background: none; border: none;
+      color: var(--muted);
+      font-size: 1.2rem;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+      line-height: 1;
+    }
+
+    .modal-close:hover { color: var(--gold); }
+
+    .modal-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .modal-sub {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 0.9rem;
+      color: rgba(201,168,76,0.35);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 1.5rem 0;
+    }
+
+    .modal-body {
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: var(--cream-dim);
+      margin-bottom: 2rem;
+    }
+
+    .modal-contact-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .modal-contact-list li {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--cream-dim);
+    }
+
+    .modal-contact-list .icon {
+      font-size: 1rem;
+      width: 24px; text-align: center;
+    }
+
+    .modal-contact-list a {
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .modal-contact-list a:hover { color: var(--gold); }
+
+    .modal-btn {
+      display: block; width: 100%;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #080603;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      padding: 1rem;
+      text-decoration: none;
+      transition: opacity 0.3s;
+      border: none;
+    }
+
+    .modal-btn:hover { opacity: 0.85; }
+
+    /* ════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════ */
+    footer {
+      background: #050402;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 4rem 3rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-brand-dev {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 0.75rem;
+      color: rgba(201,168,76,0.3);
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.72rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .footer-col-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+
+    .footer-links a {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(201,168,76,0.08);
+      padding: 1.5rem 4rem;
+      display: flex;
+      align-items: center; justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: rgba(138,122,96,0.4);
+    }
+
+    .footer-founder {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: rgba(201,168,76,0.3);
+    }
+
+    /* ════════════════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .categories-grid { grid-template-columns: 1fr 1fr; }
+      .crafts-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      nav { padding: 1.2rem 2rem; }
+      nav.scrolled { padding: 0.8rem 2rem; }
+      .nav-center { display: none; }
+      .story-section { grid-template-columns: 1fr; padding: 4rem 2rem; }
+      .story-visual { height: 350px; }
+    }
+
+    @media (max-width: 640px) {
+      .categories-grid { grid-template-columns: 1fr; }
+      .crafts-grid { grid-template-columns: 1fr; padding: 0 1.5rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .modal { padding: 2.5rem 1.8rem; }
+      .contact-section { padding: 4rem 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- GRAIN -->
+  <div class="grain"></div>
+
+  <!-- CURSORS -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- WATERMARK -->
+  <div class="watermark">शिखर · Shikhar</div>
+
+  <!-- ══════════════════════════════════
+       MODAL
+  ══════════════════════════════════ -->
+  <div class="modal-overlay" id="contactModal" role="dialog" aria-modal="true" aria-label="Contact SHIKHARA">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <p class="modal-eyebrow">Reach the Summit</p>
+      <h2 class="modal-title">Connect with SHIKHARA</h2>
+      <p class="modal-sub">शिखर</p>
+      <div class="modal-divider"></div>
+      <p class="modal-body">
+        Whether you are looking for a bespoke piece, a bulk enquiry, or simply wish to know more about our collections — we are here. Every message is personally attended to by the founding team.
+      </p>
+      <ul class="modal-contact-list">
+        <li>
+          <span class="icon">📞</span>
+          <div>
+            <div style="font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);font-family:'Cinzel',serif;margin-bottom:0.2rem;">PHONE</div>
+            <a href="tel:+919106231032">+91 91062 31032</a>
+          </div>
+        </li>
+        <li>
+          <span class="icon">✉️</span>
+          <div>
+            <div style="font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);font-family:'Cinzel',serif;margin-bottom:0.2rem;">EMAIL</div>
+            <a href="mailto:devildeniedd2@gmail.com">devildeniedd2@gmail.com</a>
+          </div>
+        </li>
+        <li>
+          <span class="icon">🕐</span>
+          <div>
+            <div style="font-size:0.6rem;letter-spacing:0.2em;color:var(--gold);font-family:'Cinzel',serif;margin-bottom:0.2rem;">HOURS</div>
+            <span>Monday – Saturday · 10AM to 7PM IST</span>
+          </div>
+        </li>
+      </ul>
+      <a href="mailto:devildeniedd2@gmail.com" class="modal-btn">Send an Enquiry</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════ -->
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-main">SHIKHARA</span>
+      <span class="nav-logo-sub">शिखर · by Shikhar</span>
+    </a>
+    <ul class="nav-center">
+      <li><a href="men.html">Men</a></li>
+      <li><a href="women.html">Women</a></li>
+      <li><a href="jewellery.html">Jewellery</a></li>
+      <li><a href="watches.html">Watches</a></li>
+    </ul>
+    <div class="nav-right">
+      <button onclick="openModal()" class="nav-contact-btn" style="background:none;border:1px solid var(--border);font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);padding:0.5rem 1.2rem;transition:background 0.3s,color 0.3s;">
+        Contact
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════
+       HERO
+  ══════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+
+    <!-- Rotating mandala -->
+    <div class="hero-mandala">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="190" stroke="#c9a84c" stroke-width="0.5"/>
+        <circle cx="200" cy="200" r="150" stroke="#c9a84c" stroke-width="0.5"/>
+        <circle cx="200" cy="200" r="110" stroke="#c9a84c" stroke-width="0.5"/>
+        <circle cx="200" cy="200" r="70" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="200" y1="10" x2="200" y2="390" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="10" y1="200" x2="390" y2="200" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="55" y1="55" x2="345" y2="345" stroke="#c9a84c" stroke-width="0.5"/>
+        <line x1="345" y1="55" x2="55" y2="345" stroke="#c9a84c" stroke-width="0.5"/>
+        <polygon points="200,30 230,170 380,200 230,230 200,370 170,230 20,200 170,170" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
+        <polygon points="200,80 220,180 320,200 220,220 200,320 180,220 80,200 180,180" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">The Summit of Indian Luxury</p>
+      <h1 class="hero-title">SHIKHARA</h1>
+      <p class="hero-devanagari">शिखर</p>
+      <div class="hero-rule">
+        <div class="hero-rule-line"></div>
+        <div class="hero-rule-diamond"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+      <p class="hero-tagline">Indian Heritage · Premium Craft · Adult Luxury Fashion</p>
+      <div class="hero-states">
+        <span class="hero-state">Kerala</span>
+        <span class="hero-state">·</span>
+        <span class="hero-state">Gujarat</span>
+        <span class="hero-state">·</span>
+        <span class="hero-state">West Bengal</span>
+        <span class="hero-state">·</span>
+        <span class="hero-state">Madhya Pradesh</span>
+        <span class="hero-state">·</span>
+        <span class="hero-state">Rajasthan</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="men.html" class="btn-primary">Explore Collections</a>
+        <button onclick="openModal()" class="btn-secondary" style="background:none;border:1px solid var(--border);">Contact Us</button>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       ANNOUNCEMENT STRIP
+  ══════════════════════════════════ -->
+  <div class="strip">
+    <div class="strip-inner">
+      &nbsp;&nbsp;SHIKHARA™&nbsp;&nbsp;·&nbsp;&nbsp;INDIAN LUXURY FASHION&nbsp;&nbsp;·&nbsp;&nbsp;FOUNDED BY SHIKHAR&nbsp;&nbsp;·&nbsp;&nbsp;शिखर&nbsp;&nbsp;·&nbsp;&nbsp;THE SUMMIT OF CRAFT&nbsp;&nbsp;·&nbsp;&nbsp;KERALA · GUJARAT · BENGAL · RAJASTHAN · MP&nbsp;&nbsp;·&nbsp;&nbsp;SHIKHARA™&nbsp;&nbsp;·&nbsp;&nbsp;INDIAN LUXURY FASHION&nbsp;&nbsp;·&nbsp;&nbsp;FOUNDED BY SHIKHAR&nbsp;&nbsp;·&nbsp;&nbsp;शिखर&nbsp;&nbsp;·&nbsp;&nbsp;THE SUMMIT OF CRAFT&nbsp;&nbsp;·&nbsp;&nbsp;KERALA · GUJARAT · BENGAL · RAJASTHAN · MP&nbsp;&nbsp;·&nbsp;&nbsp;
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       COLLECTIONS
+  ══════════════════════════════════ -->
+  <div class="section-head">
+    <p class="section-label">Our Collections</p>
+    <h2 class="section-title">Dressed in the <em>Soul of Bharat</em></h2>
+  </div>
+
+  <div class="categories-grid">
+
+    <!-- MEN -->
+    <a class="cat-card cat-men" href="men.html">
+      <div class="cat-card-inner"></div>
+      <div class="cat-pattern"></div>
+      <span class="cat-number">01</span>
+      <div class="cat-icon">🧣</div>
+      <div class="cat-content">
+        <p class="cat-region">Kerala · Rajasthan · Punjab</p>
+        <h3 class="cat-name">Men</h3>
+        <p class="cat-sub">Kurtas · Sherwanis · Dhotis<br>Pathani Suits · Nehru Jackets</p>
+        <div class="cat-link">
+          <div class="cat-link-line"></div>
+          Explore
+        </div>
+      </div>
+    </a>
+
+    <!-- WOMEN -->
+    <a class="cat-card cat-women" href="women.html">
+      <div class="cat-card-inner"></div>
+      <div class="cat-pattern"></div>
+      <span class="cat-number">02</span>
+      <div class="cat-icon">🥻</div>
+      <div class="cat-content">
+        <p class="cat-region">Gujarat · West Bengal · Tamil Nadu</p>
+        <h3 class="cat-name">Women</h3>
+        <p class="cat-sub">Sarees · Lehengas · Anarkalis<br>Tops · Palazzo Sets</p>
+        <div class="cat-link">
+          <div class="cat-link-line"></div>
+          Explore
+        </div>
+      </div>
+    </a>
+
+    <!-- JEWELLERY -->
+    <a class="cat-card cat-jewelry" href="jewellery.html">
+      <div class="cat-card-inner"></div>
+      <div class="cat-pattern"></div>
+      <span class="cat-number">03</span>
+      <div class="cat-icon">💎</div>
+      <div class="cat-content">
+        <p class="cat-region">Jaipur · Hyderabad · Chennai</p>
+        <h3 class="cat-name">Jewellery</h3>
+        <p class="cat-sub">Earrings · Necklaces · Bangles<br>Maang Tikka · Rings</p>
+        <div class="cat-link">
+          <div class="cat-link-line"></div>
+          Explore
+        </div>
+      </div>
+    </a>
+
+    <!-- WATCHES -->
+    <a class="cat-card cat-watches" href="watches.html">
+      <div class="cat-card-inner"></div>
+      <div class="cat-pattern"></div>
+      <span class="cat-number">04</span>
+      <div class="cat-icon">⌚</div>
+      <div class="cat-content">
+        <p class="cat-region">Inspired by Craft</p>
+        <h3 class="cat-name">Watches</h3>
+        <p class="cat-sub">Leather · Sleek · Chain<br>Smartwatch Collections</p>
+        <div class="cat-link">
+          <div class="cat-link-line"></div>
+          Explore
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Rest of the code remains exactly the same (heritage marquee, brand story, crafts, contact, footer, script) -->
+  <!-- ══════════════════════════════════
+       HERITAGE MARQUEE
+  ══════════════════════════════════ -->
+  <div class="heritage-marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">Kanjivaram Silk</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Bandhani</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Zardozi</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Kantha Embroidery</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Kasavu</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Chanderi</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Phulkari</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Maheshwari</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Kanjivaram Silk</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Bandhani</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Zardozi</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Kantha Embroidery</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Kasavu</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Chanderi</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Phulkari</span>
+      <div class="marquee-dot"></div>
+      <span class="marquee-item">Maheshwari</span>
+      <div class="marquee-dot"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       BRAND STORY
+  ══════════════════════════════════ -->
+  <div class="section-head">
+    <p class="section-label">Our Story</p>
+    <h2 class="section-title">Born at the <em>Shikhar</em> of India</h2>
+  </div>
+
+  <div class="story-section">
+    <div class="story-visual">
+      <div class="story-frame-a">
+        <div class="story-frame-a-inner">🪔</div>
+      </div>
+      <div class="story-frame-b">✦</div>
+      <div class="story-gold-text">SHIKHARA</div>
+    </div>
+    <div class="story-text-content">
+      <blockquote class="story-quote">
+        "Every thread tells a story. Every stitch carries a civilization."
+      </blockquote>
+      <p class="story-body">
+        SHIKHARA is not merely a fashion brand. It is an act of reverence — to the weavers of Varanasi, the dyers of Rajasthan, the embroiderers of Gujarat, the silk masters of Tamil Nadu. Founded by Shikhar with the belief that Indian craft deserves the same altar as any European house.
+      </p>
+      <p class="story-body">
+        We source from the hands that have kept traditions alive for centuries, and we present them in the language of modern luxury. The result is something the world has not seen before — Indian heritage, uncompromised.
+      </p>
+      <div class="state-pills">
+        <span class="state-pill">Kerala</span>
+        <span class="state-pill">Gujarat</span>
+        <span class="state-pill">West Bengal</span>
+        <span class="state-pill">Madhya Pradesh</span>
+        <span class="state-pill">Rajasthan</span>
+        <span class="state-pill">Punjab</span>
+        <span class="state-pill">Karnataka</span>
+        <span class="state-pill">Tamil Nadu</span>
+        <span class="state-pill">Andhra Pradesh</span>
+        <span class="state-pill">Odisha</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CRAFT HIGHLIGHTS
+  ══════════════════════════════════ -->
+  <div class="crafts-section">
+    <div class="section-head" style="padding-top:0;">
+      <p class="section-label">Heritage Crafts</p>
+      <h2 class="section-title">Woven from <em>Across India</em></h2>
+    </div>
+    <div class="crafts-grid">
+
+      <div class="craft-item">
+        <div class="craft-num">01</div>
+        <div class="craft-icon">🌴</div>
+        <p class="craft-state">Kerala</p>
+        <h3 class="craft-name">Kasavu Weaving</h3>
+        <p class="craft-desc">The iconic gold-bordered white fabric — worn at celebrations, woven by hand on traditional looms along the backwaters.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">02</div>
+        <div class="craft-icon">🪞</div>
+        <p class="craft-state">Gujarat</p>
+        <h3 class="craft-name">Bandhani & Mirror Work</h3>
+        <p class="craft-desc">Tie-dye mastery and Shisha embroidery from the Kutch craftspeople — each mirror reflecting a universe of colour.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">03</div>
+        <div class="craft-icon">🧵</div>
+        <p class="craft-state">West Bengal</p>
+        <h3 class="craft-name">Kantha & Muslin</h3>
+        <p class="craft-desc">Running stitch artistry and the legendary Jamdani muslin — so fine it was once called "woven air" by Mughal emperors.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">04</div>
+        <div class="craft-icon">🖼️</div>
+        <p class="craft-state">Madhya Pradesh</p>
+        <h3 class="craft-name">Chanderi & Bagh Print</h3>
+        <p class="craft-desc">Centuries-old silk-cotton weaves from Chanderi and the natural dye block printing tradition of Bagh village.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">05</div>
+        <div class="craft-icon">👑</div>
+        <p class="craft-state">Rajasthan</p>
+        <h3 class="craft-name">Zardozi & Leheriya</h3>
+        <p class="craft-desc">Gold thread embroidery fit for royalty, paired with the wave-pattern tie-dye of the desert — Leheriya.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">06</div>
+        <div class="craft-icon">🌸</div>
+        <p class="craft-state">Punjab</p>
+        <h3 class="craft-name">Phulkari</h3>
+        <p class="craft-desc">Flower embroidery done entirely in silk floss on coarse fabric — a tradition passed from mother to daughter for generations.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">07</div>
+        <div class="craft-icon">🏛️</div>
+        <p class="craft-state">Karnataka</p>
+        <h3 class="craft-name">Mysore Silk</h3>
+        <p class="craft-desc">Pure mulberry silk from the royal city — lustrous, lightweight, and carrying the weight of centuries of Carnatic culture.</p>
+      </div>
+
+      <div class="craft-item">
+        <div class="craft-num">08</div>
+        <div class="craft-icon">🎨</div>
+        <p class="craft-state">Tamil Nadu</p>
+        <h3 class="craft-name">Kanjivaram Silk</h3>
+        <p class="craft-desc">The queen of silks — woven with gold and silver zari, bright colours, and contrasting borders since the Chola dynasty.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       CONTACT SECTION
+  ══════════════════════════════════ -->
+  <section class="contact-section">
+    <p class="section-label">Reach Us</p>
+    <h2 class="section-title" style="margin-top:0.8rem;">We Are <em>Here for You</em></h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-card-icon">📞</span>
+        <p class="contact-card-label">Phone</p>
+        <p class="contact-card-value">
+          <a href="tel:+919106231032">+91 91062 31032</a>
+        </p>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-icon">✉️</span>
+        <p class="contact-card-label">Email</p>
+        <p class="contact-card-value">
+          <a href="mailto:devildeniedd2@gmail.com">devildeniedd2@gmail.com</a>
+        </p>
+      </div>
+    </div>
+    <p class="contact-hours">Monday – Saturday &nbsp;·&nbsp; 10:00 AM – 7:00 PM IST</p>
+    <div style="margin-top:2.5rem;">
+      <button onclick="openModal()" class="btn-primary" style="border:none;padding:1rem 3rem;">
+        Open Contact Card
+      </button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">SHIKHARA</div>
+        <div class="footer-brand-dev">शिखर · Founded by Shikhar</div>
+        <p class="footer-brand-desc">A premium Indian luxury fashion house drawing its soul from the ancient looms, dye vats, and embroidery frames of India — presented in the language of global luxury.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Collections</p>
+        <ul class="footer-links">
+          <li><a href="men.html">Men's Collection</a></li>
+          <li><a href="women.html">Women's Collection</a></li>
+          <li><a href="jewellery.html">Jewellery</a></li>
+          <li><a href="watches.html">Watches</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Heritage</p>
+        <ul class="footer-links">
+          <li><a href="#">Kerala Crafts</a></li>
+          <li><a href="#">Gujarat Weaves</a></li>
+          <li><a href="#">Bengal Silks</a></li>
+          <li><a href="#">Rajasthan Prints</a></li>
+          <li><a href="#">MP Textiles</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-links">
+          <li><a href="tel:+919106231032">+91 91062 31032</a></li>
+          <li><a href="mailto:devildeniedd2@gmail.com">devildeniedd2@gmail.com</a></li>
+          <li><a href="#">Mon–Sat · 10AM–7PM IST</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 SHIKHARA™ — Indian Luxury Fashion House · All Rights Reserved</p>
+      <p class="footer-founder">A Shikhar Creation</p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════ -->
+  <script>
+    /* ── Custom Cursor ── */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left  = mx - 4 + 'px';
+      dot.style.top   = my - 4 + 'px';
+    });
+
+    (function animRing() {
+      rx += (mx - rx - 16) * 0.15;
+      ry += (my - ry - 16) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+
+    /* ── Navbar scroll ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* ── Modal ── */
+    const overlay = document.getElementById('contactModal');
+    const closeBtn = document.getElementById('modalClose');
+
+    function openModal() {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ── Open modal after 4 seconds on first visit ── */
+    setTimeout(() => {
+      if (!sessionStorage.getItem('modalShown')) {
+        openModal();
+        sessionStorage.setItem('modalShown', '1');
+      }
+    }, 4000);
+  </script>
+
+</body>
+</html>
