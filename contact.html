@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — SHIKHARA™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;800;900&family=Jost:wght@200;300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--bg2:#0f0b06;--cream:#f5f0e8;--cream-dim:rgba(245,240,232,0.6);--muted:#8a7a60;--border:rgba(201,168,76,0.18);}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}*{cursor:none!important;}html{scroll-behavior:smooth;}
+    body{background:#080603;color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;min-height:100vh;}
+    #cursor-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;}
+    #cursor-ring{width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transition:width 0.3s,height 0.3s,border-color 0.3s;}
+    body.hovering #cursor-ring{width:52px;height:52px;border-color:var(--gold);}
+    .watermark{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Noto Serif Devanagari',serif;font-size:0.75rem;letter-spacing:0.15em;color:rgba(201,168,76,0.1);pointer-events:none;z-index:50;user-select:none;writing-mode:vertical-rl;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.4rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background 0.5s,padding 0.3s;}
+    nav.scrolled{background:rgba(8,6,3,0.97);backdrop-filter:blur(20px);padding:0.9rem 4rem;border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;flex-direction:column;text-decoration:none;line-height:1;}
+    .nav-logo-main{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.35em;color:var(--gold);}
+    .nav-logo-sub{font-family:'Noto Serif Devanagari',serif;font-size:0.5rem;letter-spacing:0.2em;color:rgba(201,168,76,0.4);text-align:center;margin-top:0.1rem;}
+    .nav-center{display:flex;gap:3rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-center a{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(245,240,232,0.6);text-decoration:none;font-family:'Cinzel',serif;transition:color 0.3s;position:relative;padding-bottom:2px;}
+    .nav-center a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+    .nav-center a:hover{color:var(--gold);}
+    .nav-center a:hover::after{width:100%;}
+    .nav-back{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.5rem 1.2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .nav-back:hover{background:var(--gold);color:#080603;}
+
+    /* HERO */
+    .page-hero{height:50vh;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(80,50,10,0.4) 0%,transparent 60%),radial-gradient(ellipse at 20% 30%,rgba(201,168,76,0.08) 0%,transparent 50%),linear-gradient(160deg,#120e05,#080603,#0d0a04);}
+    .page-hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 50px,rgba(201,168,76,0.015) 50px,rgba(201,168,76,0.015) 51px),repeating-linear-gradient(90deg,transparent,transparent 50px,rgba(201,168,76,0.015) 50px,rgba(201,168,76,0.015) 51px);}
+    .page-hero-content{position:relative;z-index:2;}
+    .page-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+    .page-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2.5rem,7vw,5rem);letter-spacing:0.2em;background:linear-gradient(135deg,#d4b86a,#f0dfa0,#c9a84c,#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+    .page-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--muted);letter-spacing:0.2em;margin-top:0.5rem;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
+
+    /* MAIN CONTACT LAYOUT */
+    .contact-wrapper{max-width:1100px;margin:0 auto;padding:5rem 4rem 6rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+
+    /* LEFT — info */
+    .contact-info{}
+    .contact-info-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--cream);margin-bottom:0.5rem;line-height:1.2;}
+    .contact-info-title em{font-style:italic;color:var(--gold);}
+    .contact-rule{width:60px;height:1px;background:var(--gold);margin:1.5rem 0;}
+    .contact-intro{font-size:0.8rem;line-height:1.9;color:var(--cream-dim);margin-bottom:2.5rem;}
+
+    .contact-detail{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:2.5rem;}
+    .contact-detail-item{display:flex;gap:1.2rem;align-items:flex-start;}
+    .contact-detail-icon{width:42px;height:42px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background 0.3s;}
+    .contact-detail-item:hover .contact-detail-icon{background:var(--gold-dim);}
+    .contact-detail-text{}
+    .contact-detail-label{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;}
+    .contact-detail-value{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--cream);}
+    .contact-detail-value a{color:var(--cream);text-decoration:none;transition:color 0.3s;}
+    .contact-detail-value a:hover{color:var(--gold);}
+    .contact-detail-sub{font-size:0.65rem;color:var(--muted);margin-top:0.2rem;}
+
+    .hours-box{border:1px solid var(--border);padding:1.5rem;margin-top:0.5rem;}
+    .hours-title{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+    .hours-row{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--cream-dim);padding:0.4rem 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+    .hours-row:last-child{border-bottom:none;}
+    .hours-row span:first-child{color:var(--muted);}
+    .hours-open{color:var(--gold)!important;}
+
+    /* RIGHT — Quick Links */
+    .contact-right{}
+    .quick-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:1.5rem;}
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;}
+    .quick-card{border:1px solid var(--border);padding:1.8rem 1.5rem;text-decoration:none;position:relative;overflow:hidden;transition:border-color 0.4s;display:block;margin:-1px;}
+    .quick-card:hover{border-color:rgba(201,168,76,0.45);}
+    .quick-card::before{content:'';position:absolute;inset:0;background:var(--gold-dim);opacity:0;transition:opacity 0.4s;}
+    .quick-card:hover::before{opacity:1;}
+    .quick-card-icon{font-size:1.6rem;margin-bottom:0.8rem;position:relative;z-index:1;}
+    .quick-card-label{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;position:relative;z-index:1;}
+    .quick-card-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--cream);position:relative;z-index:1;}
+    .quick-card-desc{font-size:0.62rem;color:var(--cream-dim);margin-top:0.3rem;position:relative;z-index:1;}
+
+    .faq-section{max-width:1100px;margin:0 auto;padding:0 4rem 6rem;}
+    .faq-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);margin-bottom:2rem;}
+    .faq-item{border-bottom:1px solid var(--border);padding:1.5rem 0;}
+    .faq-q{font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;display:flex;align-items:center;justify-content:space-between;}
+    .faq-a{font-size:0.78rem;line-height:1.8;color:var(--cream-dim);}
+
+    footer{background:#050402;border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;}
+    footer p{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;color:rgba(138,122,96,0.4);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+    @media(max-width:900px){.contact-wrapper{grid-template-columns:1fr;gap:3rem;padding:4rem 2rem;}.nav-center{display:none;}nav{padding:1.2rem 2rem;}nav.scrolled{padding:0.8rem 2rem;}.faq-section{padding:0 2rem 4rem;}}
+    @media(max-width:600px){.quick-grid{grid-template-columns:1fr;}.footer{padding:1.5rem 2rem;}}
+  </style>
+</head>
+<body>
+  <div id="cursor-dot"></div><div id="cursor-ring"></div>
+  <div class="watermark">शिखर · Shikhar</div>
+
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html"><span class="nav-logo-main">SHIKHARA</span><span class="nav-logo-sub">शिखर · by Shikhar</span></a>
+    <ul class="nav-center">
+      <li><a href="men.html">Men</a></li>
+      <li><a href="women.html">Women</a></li>
+      <li><a href="jewelry.html">Jewellery</a></li>
+      <li><a href="watches.html">Watches</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← Home</a>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div><div class="page-hero-pattern"></div>
+    <div class="page-hero-content">
+      <p class="page-eyebrow">We're Here</p>
+      <h1 class="page-title">Contact</h1>
+      <p class="page-sub">Every message reaches Shikhar personally.</p>
+    </div>
+  </section>
+
+  <div class="contact-wrapper">
+    <!-- LEFT -->
+    <div class="contact-info">
+      <h2 class="contact-info-title">Reach the <em>Summit</em></h2>
+      <div class="contact-rule"></div>
+      <p class="contact-intro">Whether you have a question about a product, want a bespoke piece, or simply want to know more about SHIKHARA — every enquiry is personally read and responded to by our founding team. We believe in service as premium as our products.</p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <p class="contact-detail-label">Phone</p>
+            <p class="contact-detail-value"><a href="tel:+919106231032">+91 91062 31032</a></p>
+            <p class="contact-detail-sub">Call or WhatsApp · Mon–Sat · 10AM–7PM IST</p>
+          </div>
+        </div>
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon">✉️</div>
+          <div class="contact-detail-text">
+            <p class="contact-detail-label">Email</p>
+            <p class="contact-detail-value"><a href="mailto:devildeniedd2@gmail.com">devildeniedd2@gmail.com</a></p>
+            <p class="contact-detail-sub">Response within 24 hours · All enquiries welcome</p>
+          </div>
+        </div>
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon">🕐</div>
+          <div class="contact-detail-text">
+            <p class="contact-detail-label">Availability</p>
+            <p class="contact-detail-value">Mon – Sat · 10AM to 7PM IST</p>
+            <p class="contact-detail-sub">Closed Sundays & Indian public holidays</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hours-box">
+        <p class="hours-title">Operating Hours</p>
+        <div class="hours-row"><span>Monday</span><span class="hours-open">10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span>Tuesday</span><span class="hours-open">10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span>Wednesday</span><span class="hours-open">10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span>Thursday</span><span class="hours-open">10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span>Friday</span><span class="hours-open">10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span>Saturday</span><span class="hours-open">10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row"><span>Sunday</span><span style="color:var(--muted);">Closed</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="contact-right">
+      <h3 class="quick-title">Explore Collections</h3>
+      <div class="quick-grid">
+        <a class="quick-card" href="men.html">
+          <div class="quick-card-icon">🧣</div>
+          <p class="quick-card-label">Men's</p>
+          <p class="quick-card-name">Men's Collection</p>
+          <p class="quick-card-desc">Kurtas, Sherwanis, Pathani & more</p>
+        </a>
+        <a class="quick-card" href="women.html">
+          <div class="quick-card-icon">🥻</div>
+          <p class="quick-card-label">Women's</p>
+          <p class="quick-card-name">Women's Collection</p>
+          <p class="quick-card-desc">Sarees, Lehengas, Anarkalis & more</p>
+        </a>
+        <a class="quick-card" href="jewelry.html">
+          <div class="quick-card-icon">💎</div>
+          <p class="quick-card-label">Jewellery</p>
+          <p class="quick-card-name">Jewellery</p>
+          <p class="quick-card-desc">Earrings, Necklaces, Bangles</p>
+        </a>
+        <a class="quick-card" href="watches.html">
+          <div class="quick-card-icon">⌚</div>
+          <p class="quick-card-label">Watches</p>
+          <p class="quick-card-name">Watches</p>
+          <p class="quick-card-desc">Leather, Sleek, Chain, Smart</p>
+        </a>
+      </div>
+
+      <div style="margin-top:2.5rem;border:1px solid var(--border);padding:2rem;">
+        <p style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Quick Contact</p>
+        <a href="tel:+919106231032" style="display:flex;align-items:center;gap:1rem;padding:1rem;border:1px solid var(--border);text-decoration:none;margin-bottom:0.8rem;transition:background 0.3s;" onmouseenter="this.style.background='rgba(201,168,76,0.08)'" onmouseleave="this.style.background='none'">
+          <span style="font-size:1.2rem;">📞</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream);">+91 91062 31032</span>
+        </a>
+        <a href="mailto:devildeniedd2@gmail.com" style="display:flex;align-items:center;gap:1rem;padding:1rem;border:1px solid var(--border);text-decoration:none;transition:background 0.3s;" onmouseenter="this.style.background='rgba(201,168,76,0.08)'" onmouseleave="this.style.background='none'">
+          <span style="font-size:1.2rem;">✉️</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:var(--cream);">devildeniedd2@gmail.com</span>
+        </a>
+      </div>
+
+      <div style="margin-top:1.5rem;padding:1.5rem;background:var(--gold-dim);border:1px solid var(--border);">
+        <p style="font-family:'Noto Serif Devanagari',serif;font-size:1rem;color:var(--gold);margin-bottom:0.3rem;">शिखर</p>
+        <p style="font-size:0.7rem;color:var(--cream-dim);line-height:1.7;">SHIKHARA is a personal brand by Shikhar. Every order, enquiry, and conversation matters. You are not a customer — you are part of the journey.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2 class="faq-title">Frequently Asked</h2>
+    <div class="faq-item">
+      <p class="faq-q">Do you do custom / bespoke orders?</p>
+      <p class="faq-a">Yes. SHIKHARA accepts custom orders for all categories — Men's, Women's, Jewellery, and Watches. Contact us via phone or email with your requirements and we'll work with you personally.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">What states / crafts do you source from?</p>
+      <p class="faq-a">We source from Kerala, Gujarat, West Bengal, Madhya Pradesh, Rajasthan, Punjab, Karnataka, Tamil Nadu, Andhra Pradesh, and Odisha. Each piece is tied to a specific regional craft tradition.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">How do I place an order?</p>
+      <p class="faq-a">Currently, orders are placed via direct contact — call +91 91062 31032 or email devildeniedd2@gmail.com. A full e-commerce system is coming soon.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Is SHIKHARA only for Indian customers?</p>
+      <p class="faq-a">Not at all. SHIKHARA ships and serves customers across India and globally. Indian heritage fashion has no borders.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SHIKHARA™ — All Rights Reserved · Founded by Shikhar</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.75rem;color:rgba(201,168,76,0.3);">A Shikhar Creation</p>
+  </footer>
+
+  <script>
+    const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx-4+'px';dot.style.top=my-4+'px';});
+    (function a(){rx+=(mx-rx-16)*0.15;ry+=(my-ry-16)*0.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    const nav=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+  </script>
+</body>
+</html>
