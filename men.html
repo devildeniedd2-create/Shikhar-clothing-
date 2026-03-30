@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Men's Collection — SHIKHARA™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;800;900&family=Jost:wght@200;300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);
+      --deep:#080603;--bg2:#0f0b06;--cream:#f5f0e8;--cream-dim:rgba(245,240,232,0.6);
+      --muted:#8a7a60;--border:rgba(201,168,76,0.18);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    *{cursor:none!important;}
+    html{scroll-behavior:smooth;}
+    body{background:#080603;color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;}
+    #cursor-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;}
+    #cursor-ring{width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transition:width 0.3s,height 0.3s,border-color 0.3s;}
+    body.hovering #cursor-ring{width:52px;height:52px;border-color:var(--gold);}
+    .watermark{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Noto Serif Devanagari',serif;font-size:0.75rem;letter-spacing:0.15em;color:rgba(201,168,76,0.1);pointer-events:none;z-index:50;user-select:none;writing-mode:vertical-rl;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.4rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background 0.5s,padding 0.3s;}
+    nav.scrolled{background:rgba(8,6,3,0.97);backdrop-filter:blur(20px);padding:0.9rem 4rem;border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;flex-direction:column;text-decoration:none;line-height:1;}
+    .nav-logo-main{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.35em;color:var(--gold);}
+    .nav-logo-sub{font-family:'Noto Serif Devanagari',serif;font-size:0.5rem;letter-spacing:0.2em;color:rgba(201,168,76,0.4);text-align:center;margin-top:0.1rem;}
+    .nav-center{display:flex;gap:3rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-center a{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(245,240,232,0.6);text-decoration:none;font-family:'Cinzel',serif;transition:color 0.3s;position:relative;padding-bottom:2px;}
+    .nav-center a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+    .nav-center a:hover,.nav-center a.active{color:var(--gold);}
+    .nav-center a:hover::after,.nav-center a.active::after{width:100%;}
+    .nav-back{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.5rem 1.2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .nav-back:hover{background:var(--gold);color:#080603;}
+
+    /* PAGE HERO */
+    .page-hero{height:55vh;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(107,31,31,0.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(201,168,76,0.08) 0%,transparent 55%),linear-gradient(160deg,#120608 0%,#080603 50%,#0a0405 100%);}
+    .page-hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(201,168,76,0.02) 40px,rgba(201,168,76,0.02) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(201,168,76,0.02) 40px,rgba(201,168,76,0.02) 41px);}
+    .page-hero-content{position:relative;z-index:2;}
+    .page-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+    .page-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,8vw,6rem);letter-spacing:0.2em;background:linear-gradient(135deg,#d4b86a,#f0dfa0,#c9a84c,#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+    .page-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--muted);letter-spacing:0.2em;margin-top:0.5rem;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
+    .breadcrumb{display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-top:1.5rem;opacity:0;animation:fadeUp 1s ease 0.9s forwards;}
+    .breadcrumb a{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+    .breadcrumb a:hover{color:var(--gold);}
+    .breadcrumb span{font-size:0.55rem;color:rgba(138,122,96,0.4);}
+
+    /* STRIP */
+    .strip{background:var(--gold);padding:0.6rem 0;overflow:hidden;}
+    .strip-inner{display:inline-block;white-space:nowrap;animation:marqueeScroll 30s linear infinite;font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.35em;color:#080603;font-weight:600;}
+
+    /* FILTER BAR */
+    .filter-bar{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;padding:3rem 2rem 0;}
+    .filter-btn{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.5rem 1.4rem;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.3s;}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+
+    /* PRODUCTS GRID */
+    .section-head{text-align:center;padding:4rem 2rem 2.5rem;}
+    .section-label{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;justify-content:center;gap:1rem;}
+    .section-label::before,.section-label::after{content:'';width:30px;height:1px;background:var(--gold);opacity:0.4;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);margin-top:0.8rem;}
+    .section-title em{font-style:italic;color:var(--gold);}
+
+    .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;padding:0 1.5px;max-width:1400px;margin:0 auto 6rem;}
+    .product-card{position:relative;overflow:hidden;aspect-ratio:3/4;text-decoration:none;display:block;}
+    .product-card-bg{position:absolute;inset:0;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
+    .product-card:hover .product-card-bg{transform:scale(1.06);}
+
+    /* Individual product backgrounds */
+    .p1 .product-card-bg{background:radial-gradient(ellipse at 40% 30%,rgba(107,31,31,0.5),transparent 60%),linear-gradient(160deg,#180a0a,#0d0505);}
+    .p2 .product-card-bg{background:radial-gradient(ellipse at 60% 70%,rgba(80,55,10,0.5),transparent 60%),linear-gradient(160deg,#140e03,#0a0802);}
+    .p3 .product-card-bg{background:radial-gradient(ellipse at 30% 60%,rgba(20,60,80,0.5),transparent 60%),linear-gradient(160deg,#04101a,#030a10);}
+    .p4 .product-card-bg{background:radial-gradient(ellipse at 70% 30%,rgba(40,80,20,0.4),transparent 60%),linear-gradient(160deg,#081408,#040a04);}
+    .p5 .product-card-bg{background:radial-gradient(ellipse at 50% 50%,rgba(60,20,80,0.5),transparent 60%),linear-gradient(160deg,#0e0518,#07030d);}
+    .p6 .product-card-bg{background:radial-gradient(ellipse at 30% 40%,rgba(80,50,10,0.5),transparent 60%),linear-gradient(160deg,#180f03,#0d0902);}
+
+    .product-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.2) 50%,transparent 100%);}
+    .product-tag{position:absolute;top:1.2rem;left:1.2rem;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);background:rgba(8,6,3,0.7);padding:0.3rem 0.7rem;border:1px solid var(--border);}
+    .product-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:5rem;opacity:0.08;transition:opacity 0.5s;}
+    .product-card:hover .product-icon{opacity:0.15;}
+    .product-info{position:absolute;bottom:0;left:0;right:0;padding:1.8rem 1.5rem;}
+    .product-state{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;}
+    .product-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);margin-bottom:0.3rem;}
+    .product-desc{font-size:0.65rem;color:rgba(245,240,232,0.45);line-height:1.5;}
+    .product-action{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1rem;font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(6px);transition:opacity 0.4s,transform 0.4s;}
+    .product-card:hover .product-action{opacity:1;transform:translateY(0);}
+    .action-line{width:18px;height:1px;background:var(--gold);transition:width 0.3s;}
+    .product-card:hover .action-line{width:30px;}
+
+    /* SUBCATEGORY SECTIONS */
+    .subcat-section{max-width:1200px;margin:0 auto;padding:4rem 4rem;}
+    .subcat-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);border-bottom:1px solid var(--border);padding-bottom:1rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;}
+    .subcat-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+    .subcat-items{display:flex;flex-wrap:wrap;gap:0.8rem;}
+    .subcat-item{padding:0.6rem 1.4rem;border:1px solid var(--border);font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);transition:all 0.3s;text-decoration:none;}
+    .subcat-item:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+
+    /* CONTACT STRIP */
+    .contact-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem;text-align:center;margin-top:4rem;}
+    .contact-strip h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);margin-bottom:0.5rem;}
+    .contact-strip p{font-size:0.75rem;color:var(--muted);margin-bottom:2rem;letter-spacing:0.05em;}
+    .contact-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+    .contact-link{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.8rem 2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .contact-link:hover{background:var(--gold);color:#080603;}
+
+    /* FOOTER */
+    footer{background:#050402;border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;}
+    footer p{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;color:rgba(138,122,96,0.4);}
+
+    /* KEYFRAMES */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){.products-grid{grid-template-columns:1fr 1fr;}.nav-center{display:none;}nav{padding:1.2rem 2rem;}nav.scrolled{padding:0.8rem 2rem;}.subcat-section{padding:3rem 2rem;}.footer{padding:1.5rem 2rem;}}
+    @media(max-width:600px){.products-grid{grid-template-columns:1fr;}.contact-strip{padding:3rem 1.5rem;}}
+  </style>
+</head>
+<body>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <div class="watermark">शिखर · Shikhar</div>
+
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-main">SHIKHARA</span>
+      <span class="nav-logo-sub">शिखर · by Shikhar</span>
+    </a>
+    <ul class="nav-center">
+      <li><a href="men.html" class="active">Men</a></li>
+      <li><a href="women.html">Women</a></li>
+      <li><a href="jewelry.html">Jewellery</a></li>
+      <li><a href="watches.html">Watches</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← Home</a>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-pattern"></div>
+    <div class="page-hero-content">
+      <p class="page-eyebrow">SHIKHARA Presents</p>
+      <h1 class="page-title">Men</h1>
+      <p class="page-sub">Heritage Clothing for the Modern Indian Man</p>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>·</span>
+        <span style="color:var(--gold);font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;">Men's Collection</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-inner">
+      &nbsp;&nbsp;KURTAS&nbsp;&nbsp;·&nbsp;&nbsp;SHERWANIS&nbsp;&nbsp;·&nbsp;&nbsp;DHOTIS&nbsp;&nbsp;·&nbsp;&nbsp;PATHANI SUITS&nbsp;&nbsp;·&nbsp;&nbsp;NEHRU JACKETS&nbsp;&nbsp;·&nbsp;&nbsp;BANDHGALA&nbsp;&nbsp;·&nbsp;&nbsp;KURTAS&nbsp;&nbsp;·&nbsp;&nbsp;SHERWANIS&nbsp;&nbsp;·&nbsp;&nbsp;DHOTIS&nbsp;&nbsp;·&nbsp;&nbsp;PATHANI SUITS&nbsp;&nbsp;·&nbsp;&nbsp;NEHRU JACKETS&nbsp;&nbsp;·&nbsp;&nbsp;BANDHGALA&nbsp;&nbsp;·&nbsp;&nbsp;
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Kurtas</button>
+    <button class="filter-btn">Sherwanis</button>
+    <button class="filter-btn">Dhotis</button>
+    <button class="filter-btn">Pathani</button>
+    <button class="filter-btn">Nehru Jacket</button>
+    <button class="filter-btn">Bandhgala</button>
+  </div>
+
+  <div class="section-head">
+    <p class="section-label">Men's Collection</p>
+    <h2 class="section-title">Dressed in <em>Indian Grandeur</em></h2>
+  </div>
+
+  <div class="products-grid">
+    <a class="product-card p1" href="#">
+      <div class="product-card-bg"></div>
+      <div class="product-overlay"></div>
+      <span class="product-tag">Bestseller</span>
+      <div class="product-icon">🧵</div>
+      <div class="product-info">
+        <p class="product-state">Lucknow · UP</p>
+        <h3 class="product-name">Chikankari Kurta</h3>
+        <p class="product-desc">Hand-embroidered white muslin · Classic fit · Festive & casual</p>
+        <div class="product-action"><div class="action-line"></div>View Details</div>
+      </div>
+    </a>
+    <a class="product-card p2" href="#">
+      <div class="product-card-bg"></div>
+      <div class="product-overlay"></div>
+      <span class="product-tag">Premium</span>
+      <div class="product-icon">👑</div>
+      <div class="product-info">
+        <p class="product-state">Rajasthan</p>
+        <h3 class="product-name">Royal Sherwani</h3>
+        <p class="product-desc">Zardozi embroidery · Silk · Wedding & ceremonial</p>
+        <div class="product-action"><div class="action-line"></div>View Details</div>
+      </div>
+    </a>
+    <a class="product-card p3" href="#">
+      <div class="product-card-bg"></div>
+      <div class="product-overlay"></div>
+      <span class="product-tag">Heritage</span>
+      <div class="product-icon">🌴</div>
+      <div class="product-info">
+        <p class="product-state">Kerala</p>
+        <h3 class="product-name">Kasavu Dhoti Set</h3>
+        <p class="product-desc">Pure cotton · Gold border · Traditional ceremonial</p>
+        <div class="product-action"><div class="action-line"></div>View Details</div>
+      </div>
+    </a>
+    <a class="product-card p4" href="#">
+      <div class="product-card-bg"></div>
+      <div class="product-overlay"></div>
+      <span class="product-tag">New</span>
+      <div class="product-icon">🧣</div>
+      <div class="product-info">
+        <p class="product-state">Punjab</p>
+        <h3 class="product-name">Pathani Suit</h3>
+        <p class="product-desc">Cotton blend · Relaxed silhouette · Modern Indian casual</p>
+        <div class="product-action"><div class="action-line"></div>View Details</div>
+      </div>
+    </a>
+    <a class="product-card p5" href="#">
+      <div class="product-card-bg"></div>
+      <div class="product-overlay"></div>
+      <span class="product-tag">Exclusive</span>
+      <div class="product-icon">🎩</div>
+      <div class="product-info">
+        <p class="product-state">Mysore · Karnataka</p>
+        <h3 class="product-name">Silk Nehru Jacket</h3>
+        <p class="product-desc">Mysore silk · Mandarin collar · Over kurta styling</p>
+        <div class="product-action"><div class="action-line"></div>View Details</div>
+      </div>
+    </a>
+    <a class="product-card p6" href="#">
+      <div class="product-card-bg"></div>
+      <div class="product-overlay"></div>
+      <span class="product-tag">Formal</span>
+      <div class="product-icon">🏛️</div>
+      <div class="product-info">
+        <p class="product-state">Surat · Gujarat</p>
+        <h3 class="product-name">Bandhgala Suit</h3>
+        <p class="product-desc">Woven brocade · Structured cut · Corporate & formal events</p>
+        <div class="product-action"><div class="action-line"></div>View Details</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Subcategories -->
+  <div class="subcat-section">
+    <h3 class="subcat-title">Browse by Style</h3>
+    <div class="subcat-items">
+      <a href="#" class="subcat-item">Cotton Kurtas</a>
+      <a href="#" class="subcat-item">Silk Kurtas</a>
+      <a href="#" class="subcat-item">Linen Kurtas</a>
+      <a href="#" class="subcat-item">Chanderi Kurtas</a>
+      <a href="#" class="subcat-item">Wedding Sherwanis</a>
+      <a href="#" class="subcat-item">Festive Sherwanis</a>
+      <a href="#" class="subcat-item">Kerala Dhoti</a>
+      <a href="#" class="subcat-item">Tamil Dhoti</a>
+      <a href="#" class="subcat-item">Pathani Suit</a>
+      <a href="#" class="subcat-item">Nehru Jacket</a>
+      <a href="#" class="subcat-item">Bandhgala</a>
+      <a href="#" class="subcat-item">Pyjama Sets</a>
+    </div>
+  </div>
+
+  <div class="contact-strip">
+    <h3>Looking for Something Specific?</h3>
+    <p>Reach our team for bespoke orders, size customisation, or bulk enquiries.</p>
+    <div class="contact-links">
+      <a href="tel:+919106231032" class="contact-link">📞 Call Us</a>
+      <a href="mailto:devildeniedd2@gmail.com" class="contact-link">✉️ Email Us</a>
+      <a href="contact.html" class="contact-link">Contact Page →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SHIKHARA™ — All Rights Reserved · Founded by Shikhar</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.75rem;color:rgba(201,168,76,0.3);">A Shikhar Creation</p>
+  </footer>
+
+  <script>
+    const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx-4+'px';dot.style.top=my-4+'px';});
+    (function a(){rx+=(mx-rx-16)*0.15;ry+=(my-ry-16)*0.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    const nav=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+    document.querySelectorAll('.filter-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});});
+  </script>
+</body>
+</html>
