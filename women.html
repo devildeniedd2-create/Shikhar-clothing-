@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Women's Collection — SHIKHARA™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;800;900&family=Jost:wght@200;300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:rgba(201,168,76,0.12);--deep:#080603;--bg2:#0f0b06;--cream:#f5f0e8;--cream-dim:rgba(245,240,232,0.6);--muted:#8a7a60;--border:rgba(201,168,76,0.18);}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}*{cursor:none!important;}html{scroll-behavior:smooth;}
+    body{background:#080603;color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;}
+    #cursor-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;}
+    #cursor-ring{width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transition:width 0.3s,height 0.3s,border-color 0.3s;}
+    body.hovering #cursor-ring{width:52px;height:52px;border-color:var(--gold);}
+    .watermark{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);font-family:'Noto Serif Devanagari',serif;font-size:0.75rem;letter-spacing:0.15em;color:rgba(201,168,76,0.1);pointer-events:none;z-index:50;user-select:none;writing-mode:vertical-rl;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.4rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:background 0.5s,padding 0.3s;}
+    nav.scrolled{background:rgba(8,6,3,0.97);backdrop-filter:blur(20px);padding:0.9rem 4rem;border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;flex-direction:column;text-decoration:none;line-height:1;}
+    .nav-logo-main{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:900;letter-spacing:0.35em;color:var(--gold);}
+    .nav-logo-sub{font-family:'Noto Serif Devanagari',serif;font-size:0.5rem;letter-spacing:0.2em;color:rgba(201,168,76,0.4);text-align:center;margin-top:0.1rem;}
+    .nav-center{display:flex;gap:3rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-center a{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(245,240,232,0.6);text-decoration:none;font-family:'Cinzel',serif;transition:color 0.3s;position:relative;padding-bottom:2px;}
+    .nav-center a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+    .nav-center a:hover,.nav-center a.active{color:var(--gold);}
+    .nav-center a:hover::after,.nav-center a.active::after{width:100%;}
+    .nav-back{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.5rem 1.2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .nav-back:hover{background:var(--gold);color:#080603;}
+    .page-hero{height:55vh;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(100,60,10,0.45) 0%,transparent 60%),radial-gradient(ellipse at 75% 25%,rgba(140,40,80,0.2) 0%,transparent 55%),linear-gradient(160deg,#120a03,#080603,#0d0805);}
+    .page-hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(201,168,76,0.02) 30px,rgba(201,168,76,0.02) 31px);}
+    .page-hero-content{position:relative;z-index:2;}
+    .page-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem;letter-spacing:0.5em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 0.3s forwards;}
+    .page-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(3rem,8vw,6rem);letter-spacing:0.2em;background:linear-gradient(135deg,#d4b86a,#f0dfa0,#c9a84c,#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+    .page-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--muted);letter-spacing:0.2em;margin-top:0.5rem;opacity:0;animation:fadeUp 1s ease 0.7s forwards;}
+    .breadcrumb{display:flex;align-items:center;gap:0.6rem;justify-content:center;margin-top:1.5rem;opacity:0;animation:fadeUp 1s ease 0.9s forwards;}
+    .breadcrumb a{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+    .breadcrumb a:hover{color:var(--gold);}
+    .breadcrumb span{font-size:0.55rem;color:rgba(138,122,96,0.4);}
+    .strip{background:var(--gold);padding:0.6rem 0;overflow:hidden;}
+    .strip-inner{display:inline-block;white-space:nowrap;animation:marqueeScroll 30s linear infinite;font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.35em;color:#080603;font-weight:600;}
+    .filter-bar{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;padding:3rem 2rem 0;}
+    .filter-btn{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.5rem 1.4rem;border:1px solid var(--border);color:var(--muted);background:none;transition:all 0.3s;}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+    .section-head{text-align:center;padding:4rem 2rem 2.5rem;}
+    .section-label{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;justify-content:center;gap:1rem;}
+    .section-label::before,.section-label::after{content:'';width:30px;height:1px;background:var(--gold);opacity:0.4;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--cream);margin-top:0.8rem;}
+    .section-title em{font-style:italic;color:var(--gold);}
+    /* Asymmetric women's grid */
+    .products-grid-women{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto;gap:1.5px;padding:0 1.5px;max-width:1400px;margin:0 auto 6rem;}
+    .product-card{position:relative;overflow:hidden;text-decoration:none;display:block;}
+    .product-card.tall{aspect-ratio:2/3;}
+    .product-card.wide{aspect-ratio:4/3;}
+    .product-card:nth-child(1){grid-column:1;grid-row:1 2;aspect-ratio:2/3;}
+    .product-card:nth-child(2){grid-column:2;aspect-ratio:2/3;}
+    .product-card:nth-child(3){grid-column:3;aspect-ratio:2/3;}
+    .product-card:nth-child(4){grid-column:1;aspect-ratio:2/3;}
+    .product-card:nth-child(5){grid-column:2;aspect-ratio:2/3;}
+    .product-card:nth-child(6){grid-column:3;aspect-ratio:2/3;}
+    .product-card-bg{position:absolute;inset:0;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);}
+    .product-card:hover .product-card-bg{transform:scale(1.06);}
+    .w1 .product-card-bg{background:radial-gradient(ellipse at 40% 30%,rgba(120,40,10,0.5),transparent 60%),linear-gradient(160deg,#1a0a03,#0d0603);}
+    .w2 .product-card-bg{background:radial-gradient(ellipse at 60% 60%,rgba(100,20,60,0.5),transparent 60%),linear-gradient(160deg,#180510,#0d030a);}
+    .w3 .product-card-bg{background:radial-gradient(ellipse at 30% 50%,rgba(20,80,60,0.4),transparent 60%),linear-gradient(160deg,#03140e,#020d09);}
+    .w4 .product-card-bg{background:radial-gradient(ellipse at 70% 40%,rgba(80,60,10,0.5),transparent 60%),linear-gradient(160deg,#14100302,#0a0802);}
+    .w5 .product-card-bg{background:radial-gradient(ellipse at 50% 50%,rgba(40,10,80,0.5),transparent 60%),linear-gradient(160deg,#0a0318,#06020f);}
+    .w6 .product-card-bg{background:radial-gradient(ellipse at 35% 60%,rgba(10,60,80,0.4),transparent 60%),linear-gradient(160deg,#031018,#02080d);}
+    .product-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.15) 50%,transparent 100%);}
+    .product-tag{position:absolute;top:1.2rem;left:1.2rem;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);background:rgba(8,6,3,0.7);padding:0.3rem 0.7rem;border:1px solid var(--border);}
+    .product-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:5rem;opacity:0.08;transition:opacity 0.5s;}
+    .product-card:hover .product-icon{opacity:0.15;}
+    .product-info{position:absolute;bottom:0;left:0;right:0;padding:1.8rem 1.5rem;}
+    .product-state{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;}
+    .product-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);margin-bottom:0.3rem;}
+    .product-desc{font-size:0.65rem;color:rgba(245,240,232,0.45);line-height:1.5;}
+    .product-action{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1rem;font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(6px);transition:opacity 0.4s,transform 0.4s;}
+    .product-card:hover .product-action{opacity:1;transform:translateY(0);}
+    .action-line{width:18px;height:1px;background:var(--gold);transition:width 0.3s;}
+    .product-card:hover .action-line{width:30px;}
+    .subcat-section{max-width:1200px;margin:0 auto;padding:4rem 4rem;}
+    .subcat-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream);border-bottom:1px solid var(--border);padding-bottom:1rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;}
+    .subcat-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+    .subcat-items{display:flex;flex-wrap:wrap;gap:0.8rem;}
+    .subcat-item{padding:0.6rem 1.4rem;border:1px solid var(--border);font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);transition:all 0.3s;text-decoration:none;}
+    .subcat-item:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+    .contact-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem;text-align:center;margin-top:4rem;}
+    .contact-strip h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);margin-bottom:0.5rem;}
+    .contact-strip p{font-size:0.75rem;color:var(--muted);margin-bottom:2rem;letter-spacing:0.05em;}
+    .contact-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;}
+    .contact-link{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.8rem 2rem;text-decoration:none;transition:background 0.3s,color 0.3s;}
+    .contact-link:hover{background:var(--gold);color:#080603;}
+    footer{background:#050402;border-top:1px solid var(--border);padding:2rem 4rem;display:flex;align-items:center;justify-content:space-between;}
+    footer p{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;color:rgba(138,122,96,0.4);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+    @media(max-width:900px){.products-grid-women{grid-template-columns:1fr 1fr;}.products-grid-women .product-card{grid-column:auto!important;grid-row:auto!important;aspect-ratio:2/3!important;}.nav-center{display:none;}nav{padding:1.2rem 2rem;}nav.scrolled{padding:0.8rem 2rem;}.subcat-section{padding:3rem 2rem;}}
+    @media(max-width:600px){.products-grid-women{grid-template-columns:1fr;}.contact-strip{padding:3rem 1.5rem;}}
+  </style>
+</head>
+<body>
+  <div id="cursor-dot"></div><div id="cursor-ring"></div>
+  <div class="watermark">शिखर · Shikhar</div>
+  <nav id="navbar">
+    <a class="nav-logo" href="index.html"><span class="nav-logo-main">SHIKHARA</span><span class="nav-logo-sub">शिखर · by Shikhar</span></a>
+    <ul class="nav-center">
+      <li><a href="men.html">Men</a></li>
+      <li><a href="women.html" class="active">Women</a></li>
+      <li><a href="jewelry.html">Jewellery</a></li>
+      <li><a href="watches.html">Watches</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← Home</a>
+  </nav>
+
+  <section class="page-hero">
+    <div class="page-hero-bg"></div><div class="page-hero-pattern"></div>
+    <div class="page-hero-content">
+      <p class="page-eyebrow">SHIKHARA Presents</p>
+      <h1 class="page-title">Women</h1>
+      <p class="page-sub">Grace Woven from the Looms of India</p>
+      <div class="breadcrumb"><a href="index.html">Home</a><span>·</span><span style="color:var(--gold);font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;">Women's Collection</span></div>
+    </div>
+  </section>
+
+  <div class="strip"><div class="strip-inner">&nbsp;&nbsp;SAREES&nbsp;&nbsp;·&nbsp;&nbsp;LEHENGAS&nbsp;&nbsp;·&nbsp;&nbsp;ANARKALIS&nbsp;&nbsp;·&nbsp;&nbsp;TOPS & PANTS&nbsp;&nbsp;·&nbsp;&nbsp;PALAZZO SETS&nbsp;&nbsp;·&nbsp;&nbsp;DUPATTAS&nbsp;&nbsp;·&nbsp;&nbsp;SAREES&nbsp;&nbsp;·&nbsp;&nbsp;LEHENGAS&nbsp;&nbsp;·&nbsp;&nbsp;ANARKALIS&nbsp;&nbsp;·&nbsp;&nbsp;TOPS & PANTS&nbsp;&nbsp;·&nbsp;&nbsp;PALAZZO SETS&nbsp;&nbsp;·&nbsp;&nbsp;DUPATTAS&nbsp;&nbsp;·&nbsp;&nbsp;</div></div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Sarees</button>
+    <button class="filter-btn">Lehengas</button>
+    <button class="filter-btn">Anarkalis</button>
+    <button class="filter-btn">Tops & Pants</button>
+    <button class="filter-btn">Palazzo Sets</button>
+    <button class="filter-btn">Dupattas</button>
+  </div>
+
+  <div class="section-head">
+    <p class="section-label">Women's Collection</p>
+    <h2 class="section-title">Draped in <em>Indian Elegance</em></h2>
+  </div>
+
+  <div class="products-grid-women">
+    <a class="product-card w1" href="#"><div class="product-card-bg"></div><div class="product-overlay"></div><span class="product-tag">Signature</span><div class="product-icon">🥻</div><div class="product-info"><p class="product-state">Tamil Nadu</p><h3 class="product-name">Kanjivaram Saree</h3><p class="product-desc">Pure mulberry silk · Zari border · Temple motifs · Bridal & festive</p><div class="product-action"><div class="action-line"></div>View Details</div></div></a>
+    <a class="product-card w2" href="#"><div class="product-card-bg"></div><div class="product-overlay"></div><span class="product-tag">Bridal</span><div class="product-icon">👑</div><div class="product-info"><p class="product-state">Rajasthan</p><h3 class="product-name">Bridal Lehenga</h3><p class="product-desc">Heavy embroidery · Zardozi & gota patti · Silk base · Wedding</p><div class="product-action"><div class="action-line"></div>View Details</div></div></a>
+    <a class="product-card w3" href="#"><div class="product-card-bg"></div><div class="product-overlay"></div><span class="product-tag">Festive</span><div class="product-icon">✨</div><div class="product-info"><p class="product-state">Lucknow · UP</p><h3 class="product-name">Anarkali Suit</h3><p class="product-desc">Chikankari embroidered · Floor-length · Festive & semi-formal</p><div class="product-action"><div class="action-line"></div>View Details</div></div></a>
+    <a class="product-card w4" href="#"><div class="product-card-bg"></div><div class="product-overlay"></div><span class="product-tag">Casual Luxury</span><div class="product-icon">🌸</div><div class="product-info"><p class="product-state">Chanderi · MP</p><h3 class="product-name">Chanderi Top & Palazzo</h3><p class="product-desc">Silk-cotton blend · Floral print · Indo-western comfort</p><div class="product-action"><div class="action-line"></div>View Details</div></div></a>
+    <a class="product-card w5" href="#"><div class="product-card-bg"></div><div class="product-overlay"></div><span class="product-tag">Heritage</span><div class="product-icon">🧵</div><div class="product-info"><p class="product-state">West Bengal</p><h3 class="product-name">Banarasi Silk Saree</h3><p class="product-desc">Woven brocade · Gold zari · Mughal motifs · Occasions</p><div class="product-action"><div class="action-line"></div>View Details</div></div></a>
+    <a class="product-card w6" href="#"><div class="product-card-bg"></div><div class="product-overlay"></div><span class="product-tag">New</span><div class="product-icon">🪞</div><div class="product-info"><p class="product-state">Gujarat</p><h3 class="product-name">Bandhani Dupatta Set</h3><p class="product-desc">Tie-dye silk · Mirror work accents · Vibrant & festive</p><div class="product-action"><div class="action-line"></div>View Details</div></div></a>
+  </div>
+
+  <div class="subcat-section">
+    <h3 class="subcat-title">Browse by Category</h3>
+    <div class="subcat-items">
+      <a href="#" class="subcat-item">Kanjivaram Sarees</a>
+      <a href="#" class="subcat-item">Banarasi Sarees</a>
+      <a href="#" class="subcat-item">Chanderi Sarees</a>
+      <a href="#" class="subcat-item">Georgette Sarees</a>
+      <a href="#" class="subcat-item">Bridal Lehengas</a>
+      <a href="#" class="subcat-item">Festive Lehengas</a>
+      <a href="#" class="subcat-item">Cocktail Lehengas</a>
+      <a href="#" class="subcat-item">Floor-length Anarkalis</a>
+      <a href="#" class="subcat-item">Knee-length Anarkalis</a>
+      <a href="#" class="subcat-item">Palazzo Sets</a>
+      <a href="#" class="subcat-item">Indo-Western Tops</a>
+      <a href="#" class="subcat-item">Statement Dupattas</a>
+    </div>
+  </div>
+
+  <div class="contact-strip">
+    <h3>Bespoke Orders Welcome</h3>
+    <p>Custom sizing, fabric selection, and embroidery choices available on request.</p>
+    <div class="contact-links">
+      <a href="tel:+919106231032" class="contact-link">📞 Call Us</a>
+      <a href="mailto:devildeniedd2@gmail.com" class="contact-link">✉️ Email Us</a>
+      <a href="contact.html" class="contact-link">Contact Page →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 SHIKHARA™ — All Rights Reserved · Founded by Shikhar</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.75rem;color:rgba(201,168,76,0.3);">A Shikhar Creation</p>
+  </footer>
+
+  <script>
+    const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx-4+'px';dot.style.top=my-4+'px';});
+    (function a(){rx+=(mx-rx-16)*0.15;ry+=(my-ry-16)*0.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    const nav=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+    document.querySelectorAll('.filter-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});});
+  </script>
+</body>
+</html>
